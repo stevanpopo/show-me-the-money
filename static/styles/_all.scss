@@ -113,6 +113,11 @@ body {
     }
   }
 
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
   .content {
     line-height: 26px;
     margin: 47px 0 23px;

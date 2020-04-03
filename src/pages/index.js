@@ -2,6 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 // import featureImage from "../../static/images/hero.png";
+import { Line, Bar } from 'react-chartjs-2';
 
 class IndexPage extends React.Component {
 	constructor(props) {
@@ -9,7 +10,16 @@ class IndexPage extends React.Component {
 		this.state = {
 			earnings: '',
 			spending: '',
-			age: ''
+			age: '',
+			data: {
+				labels: ["Jan", "Feb", "March", "April", "May"],
+				datasets: [
+						{
+							label: "Rev",
+							data: [2, 3, 4.5, 6, 10],
+						}
+				]
+			}
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -60,7 +70,20 @@ class IndexPage extends React.Component {
 					</form>
 				</div>
 
-				
+				<div className="results container">
+					<div>
+						<p>You earn £{this.state.earnings} a month and spend £{this.state.spending} a month. Great, you're living within your means!</p>
+						<p>That gives you £{this.state.earnings - this.state.spending} to save and invest. By investing X of your surplus income in the S&P 500, you can earn 8% a year.</p>
+					</div>
+					<div>
+						<Bar
+							data={this.state.data}
+							// width={100}
+							// height={50}
+							// options={{ maintainAspectRatio: false }}
+						/>
+					</div>
+				</div>				
 			</Layout>
 		);
 		}
