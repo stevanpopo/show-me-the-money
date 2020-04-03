@@ -29,7 +29,7 @@ class IndexPage extends React.Component {
 		console.log("Submit!");
 
 		const difference = this.state.earnings - this.state.spending;
-		this.produceData(100, 30)
+		this.produceData(difference, 30)
 	}
 
 	produceData(difference, numberOfYears){
@@ -113,22 +113,29 @@ class IndexPage extends React.Component {
 							<input type="text" name="age" placeholder="22"  value={this.state.age} onChange={this.handleChange} />
 							</label>
 						</div>
-						<button>Show me the money!</button>
+						<div>
+							<button>Show me the money!</button>
+						</div>
 					</form>
 				</div>
 
 				<div className="results container">
-					<div>
-						<p>You earn £{this.state.earnings} a month and spend £{this.state.spending} a month. Great, you're living within your means!</p>
-						<p>That gives you £{this.state.earnings - this.state.spending} to save and invest. By investing X of your surplus income in the S&P 500, you can earn 8% a year.</p>
-					</div>
-					<div>
+					<div className="chart">
 						<Bar
 							data={chartData}
 							// width={100}
 							// height={50}
 							// options={{ maintainAspectRatio: false }}
 						/>
+					</div>
+					<div>
+						<div>
+							<p>You earn £{this.state.earnings} a month and spend £{this.state.spending} a month. Great, you're living within your means!</p>
+							<p>That gives you £{this.state.earnings - this.state.spending} to save and invest. By investing X of your surplus income in the S&P 500, you can earn 8% a year.</p>
+						</div>
+						<div>
+							Levers
+						</div>
 					</div>
 				</div>				
 			</Layout>
