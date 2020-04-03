@@ -1,10 +1,12 @@
 $break-small: 719px;
 $base-size: 16px;
+$background-color: #FDF5E6;
+$highlight-color: #e65d07;
 
 body {
   font-family: Inter;
   line-height: normal;
-  background-color: #FDF5E6;
+  background-color: $background-color;
   font-size: $base-size;
 
   h1, h2, h3, h4, h5, h6 {
@@ -111,7 +113,6 @@ body {
         border: none;
 
         &::-webkit-input-placeholder {
-          // border-bottom: 1px solid rgba(251,175,93,1);
           text-decoration: underline dotted black;
         }
         &::-moz-input-placeholder {
@@ -128,9 +129,14 @@ body {
       place-items: center;
 
       button {
-        display: block;
+        // TODO: why do I need this if place-items is set?
+        margin: 0 auto;
         width: 150px;
         height: 60px;
+        background-color: $highlight-color;
+        color: white;
+        border-radius: 5px;
+        font-size: $base-size;
       }
     }
   }
