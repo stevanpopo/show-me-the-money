@@ -26,15 +26,13 @@ class IndexPage extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		console.log("Submit!");
 
 		const difference = this.state.earnings - this.state.spending;
-		this.produceData(difference, 30)
+		const yearsToInvest = 70 - this.state.age;
+		this.produceData(difference, yearsToInvest)
 	}
 
 	produceData(difference, numberOfYears){
-		console.log("produceData");
-		
 		const years = this.getDates(numberOfYears)
 		const data = this.createData(difference, years.length)
 
@@ -49,25 +47,16 @@ class IndexPage extends React.Component {
 			data.push(difference);
 		}
 
-		console.log("Data: ", data);
 		return data;
 	}
 
 	getDates(years){
-		console.log("getDates");
 		const today = new Date().getFullYear()
 		const retirement = today + years
-		console.log("Dates: ", today, retirement);
-
-		// var d = new Date( "01 " + "July 2013");
-    // first = d.getFullYear();
-    // var s = new Date( "01 " + "May 2018");
-    // second = s.getFullYear();
-    const dates = Array();
+    const dates = [];
 
 		for(let i = today; i <= retirement; i++) dates.push(i.toString());
 		 
-		console.log("YEARS ", dates);
 		return dates;
 	}
 
