@@ -32,7 +32,7 @@ const Layout = ({ children }) => (
 				<main>{children}</main>
 				<footer>
 					<div className={"container"}>
-						<div className={"row"}>
+						{/* <div className={"row"}>
 							<div className={"col-5"}>
 								<div className={"widget__item"}>
 									<div className={"logo"}>
@@ -45,9 +45,9 @@ const Layout = ({ children }) => (
 										<p>A software that was created with the goal of solving the problems of Human Resources in small and medium-sized businesses.</p>
 									</div>
 								</div>
-							</div>
+							</div> */}
 
-							<div className={"col-2"}>
+							{/* <div className={"col-2"}>
 								<div className={"widget__item"}>
 									<ul className={"links"}>
 										<h4>HiStaff</h4>
@@ -59,9 +59,9 @@ const Layout = ({ children }) => (
 										</ul>
 									</ul>
 								</div>
-							</div>
+							</div> */}
 
-							<div className={"col-2"}>
+							{/* <div className={"col-2"}>
 								<div className={"widget__item"}>
 									<div className={"links"}>
 										<h4>Support</h4>
@@ -72,9 +72,9 @@ const Layout = ({ children }) => (
 										</ul>
 									</div>
 								</div>
-							</div>
+							</div> */}
 
-							<div className={"col-3"}>
+							{/* <div className={"col-3"}>
 								<div className={"widget__item"}>
 									<div className={"social"}>
 										<a href="https://twitter.com/histaffio" target={"_blank"} title={"Twitter"}><img alt={"Twitter"} src={iconTwitter} /></a>
@@ -84,10 +84,10 @@ const Layout = ({ children }) => (
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						<div className={"copyright"}>
-							<p>Copyright {new Date().getFullYear()}, {` `} <a href="https://histaff.io" title={"HiStaff"}>HiStaff</a>. All rights reserved.</p>
+							<p>Copyright {new Date().getFullYear()} {` `} <a href="https://histaff.io" title={"HiStaff"}></a>. All rights reserved.</p>
 						</div>
 					</div>
 				</footer>

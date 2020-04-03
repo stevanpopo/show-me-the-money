@@ -8,8 +8,8 @@ class IndexPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			earnings: '',
-			spending: '',
+			earnings: 0,
+			spending: 0,
 			age: '',
 			data: {
 				labels: ["Jan", "Feb", "March", "April", "May"],
@@ -23,14 +23,45 @@ class IndexPage extends React.Component {
 		};
 
 		this.handleChange = this.handleChange.bind(this);
-		// this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleChange(e) {
-		console.log("TARGET", e.target);
 		const field = e.target.name;
-		
 		this.setState({ [field]: e.target.value })
+	}
+
+	handleSubmit(e) {
+		e.preventDefault();
+		console.log("Submit!");
+
+		const difference = this.state.earnings - this.state.spending;
+		this.produceData(1000, 30)
+	}
+
+	produceData(difference, years){
+		console.log("produceData");
+		
+		const dates = this.getDates(years)
+		
+	}
+
+	getDates(years){
+		console.log("getDates");
+		const today = new Date().getFullYear()
+		const retirement = today + years
+		console.log("Dates: ", today, retirement);
+
+		// var d = new Date( "01 " + "July 2013");
+    // first = d.getFullYear();
+    // var s = new Date( "01 " + "May 2018");
+    // second = s.getFullYear();
+    const dates = Array();
+
+		for(let i = today; i <= retirement; i++) arr.push(i.toString());
+		 
+		console.log("YEARS ", dates);
+		return dates;
 	}
 
 	render() {
@@ -42,8 +73,8 @@ class IndexPage extends React.Component {
 
 				<div className="home container">
 					<div>
-						<h1>Make your Staff and Workspace Happy</h1>
-						<p>HiStaff gives your complex the opportunity to increase the percentage of happiness and enjoyment of your staff and as a result, bring productivity to your workspace.</p>
+						<h1>Show Me The Money</h1>
+						<p>This is why you should invest. This is why you should invest. This is why you should invest. This is why you should invest. </p>
 					</div>
 					<div>
 						<iframe height="315" src="https://www.youtube.com/embed/FCgy0dphOGc?modestbranding=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
@@ -51,7 +82,7 @@ class IndexPage extends React.Component {
 				</div>
 
 				<div className="questions container">
-					<form>
+					<form onSubmit={this.handleSubmit}>
 						<div>
 							<label>
 								How much do you earn per month?
@@ -66,7 +97,7 @@ class IndexPage extends React.Component {
 							<input type="text" name="age" placeholder="22"  value={this.state.age} onChange={this.handleChange} />
 							</label>
 						</div>
-						<input type="submit" value="Show me the money!" />
+						<button>Show me the money!</button>
 					</form>
 				</div>
 
