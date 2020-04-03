@@ -11,15 +11,8 @@ class IndexPage extends React.Component {
 			earnings: 0,
 			spending: 0,
 			age: '',
-			data: {
-				labels: ["Jan", "Feb", "March", "April", "May"],
-				datasets: [
-						{
-							label: "Rev",
-							data: [2, 3, 4.5, 6, 10],
-						}
-				]
-			}
+			labels: ["2020", "2021", "2022", "2023", "2024"],
+			dataset: [2, 3, 4.5, 6, 10]
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -36,14 +29,28 @@ class IndexPage extends React.Component {
 		console.log("Submit!");
 
 		const difference = this.state.earnings - this.state.spending;
-		this.produceData(1000, 30)
+		this.produceData(100, 30)
 	}
 
-	produceData(difference, years){
+	produceData(difference, numberOfYears){
 		console.log("produceData");
 		
-		const dates = this.getDates(years)
-		
+		const years = this.getDates(numberOfYears)
+		const data = this.createData(difference, years.length)
+
+		this.setState({ labels: years, dataset: data})
+	}
+
+	createData(difference, years) {
+		const data = []
+
+		for(let i = 1; i <= years; i++) {
+			difference = difference * 1.08;
+			data.push(difference);
+		}
+
+		console.log("Data: ", data);
+		return data;
 	}
 
 	getDates(years){
@@ -58,14 +65,23 @@ class IndexPage extends React.Component {
     // second = s.getFullYear();
     const dates = Array();
 
-		for(let i = today; i <= retirement; i++) arr.push(i.toString());
+		for(let i = today; i <= retirement; i++) dates.push(i.toString());
 		 
 		console.log("YEARS ", dates);
 		return dates;
 	}
 
 	render() {
-		console.log(this.state);
+		console.log("STATE", this.state);
+		const {labels, dataset} = this.state;
+
+		const chartData = {
+			labels: labels,
+			datasets: [{
+				label: "Wealth",
+				data: dataset
+			}]
+		}
 
 		return (
 			<Layout>
@@ -108,7 +124,7 @@ class IndexPage extends React.Component {
 					</div>
 					<div>
 						<Bar
-							data={this.state.data}
+							data={chartData}
 							// width={100}
 							// height={50}
 							// options={{ maintainAspectRatio: false }}
