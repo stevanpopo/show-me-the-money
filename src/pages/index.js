@@ -91,16 +91,17 @@ class IndexPage extends React.Component {
 						<div>
 							<label>
 								How much do you earn per month?
-							<input type="text" name="earnings" placeholder="2,000" onChange={this.handleChange} />
+							<input type="text" name="earnings" placeholder="e.g. 2,000" onChange={this.handleChange} />
 							</label>
 							<label>
 								How much do you spend per month?
-							<input type="text" name="spending" placeholder="1,200" value={this.state.spending} onChange={this.handleChange} />
+							<input type="text" name="spending" placeholder="e.g. 1,200" onChange={this.handleChange} />
 							</label>
 							<label>
 								How old are you?
-							<input type="text" name="age" placeholder="22"  value={this.state.age} onChange={this.handleChange} />
+							<input type="text" name="age" placeholder="e.g. 22" onChange={this.handleChange} />
 							</label>
+							Please note we do not save any of your personal information.
 						</div>
 						<div>
 							<button>Show me the money!</button>

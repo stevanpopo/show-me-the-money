@@ -1,12 +1,11 @@
 $break-small: 719px;
+$base-size: 16px;
 
 body {
-  // font-family: Inter;
+  font-family: Inter;
+  line-height: normal;
   background-color: #FDF5E6;
-
-  // p {
-  //   font-family: Inter;
-  // }
+  font-size: $base-size;
 
   h1, h2, h3, h4, h5, h6 {
     font-family: PT Serif;
@@ -42,7 +41,7 @@ body {
         font-size: 200%;
       }
     }
-  } 
+  }
 
   .home {
     display: grid;
@@ -50,12 +49,6 @@ body {
     grid-gap: 20px;
     margin-bottom: 40px;
 
-    div {
-      // padding: 10px;
-    }
-  }
-
-  .home {
     iframe {
       width: 100%;
     }
@@ -89,10 +82,6 @@ body {
       max-width: 65%;
     }
 
-    // &.home {
-    //   padding-bottom: 30px;
-    // }
-
     @media screen and (max-width: $break-small) {
       padding-top: 1px;
       padding-bottom: 50px;
@@ -111,14 +100,43 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 40px;
-    // padding: 10px;
 
     label {
       display: block;
+      line-height: 2rem;
+
+      input {
+        display: inline-block;
+        background-color: inherit;
+        border: none;
+
+        &::-webkit-input-placeholder {
+          // border-bottom: 1px solid rgba(251,175,93,1);
+          text-decoration: underline dotted black;
+        }
+        &::-moz-input-placeholder {
+          text-decoration: underline dotted black;
+        }      
+        &:focus {
+          outline: none
+        }
+      }
+    }
+
+    div:nth-child(2){
+      display: flex;
+      place-items: center;
+
+      button {
+        display: block;
+        width: 150px;
+        height: 60px;
+      }
     }
   }
 
   .results {
+
     .chart {
       width: 80%;
       margin: 0 auto;
@@ -128,24 +146,6 @@ body {
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
-  }
-
-  .content {
-    line-height: 26px;
-    margin: 47px 0 23px;
-
-    p {
-      margin: 0 0 16px;
-    }
-
-    .title {
-      margin: 0 0 44px;
-    }
-  }
-
-  .bg-color {
-    background-color: #fdfaff;
-    padding: 52px 0;
   }
 
   footer {
