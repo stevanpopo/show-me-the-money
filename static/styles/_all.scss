@@ -33,6 +33,10 @@ body {
     margin-bottom: 1rem;
   }
 
+  span.highlight {
+    color: $highlight-color
+  }
+
   a {
     color:$highlight-color;
 
@@ -176,10 +180,27 @@ body {
       margin-top: 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
     }
 
     .slidecontainer {
-      width: 100%; /* Width of the outside container */
+      width: 100%;
+
+      .button-container {
+        margin-top: 2rem;
+        display: flex;
+
+        button {
+          // TODO: why do I need this if place-items is set?
+          margin: 0 auto;
+          width: 150px;
+          height: 60px;
+          background-color: $highlight-color;
+          color: white;
+          border-radius: 5px;
+          font-size: $base-size;
+        }
+      }
     }
     
     /* The slider itself */

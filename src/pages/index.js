@@ -45,14 +45,23 @@ class IndexPage extends React.Component {
 	}
 
 	createData(monthlyContribution, years) {
-		const data = []
+		// NOTE: compounding frequency is monthly, is this correct?
+		const monthlyInvestmentValues = [];
+		const yearlyInvestmentValues = []
+		const annualRate = 8/100;
+		const monthlyRate = annualRate/12;
+		const months = years * 12;
+		let investmentValue = 0;
 
-		for(let i = 1; i <= years; i++) {
-			monthlyContribution = monthlyContribution * 1.08;
-			data.push(monthlyContribution);
+		for(let i = 1; i <= months; i++) {
+			// console.log("Value: ", investmentValue, "Contribution: ", monthlyContribution);
+			investmentValue = (investmentValue + monthlyContribution) * (1 + monthlyRate);
+			monthlyInvestmentValues.push(investmentValue);
+			if (i % 12 === 0) yearlyInvestmentValues.push(investmentValue)
 		}
 
-		return data;
+		// console.log("YEARLY: ", yearlyInvestmentValues);
+		return yearlyInvestmentValues;
 	}
 
 	getDates(years){
@@ -74,6 +83,7 @@ class IndexPage extends React.Component {
 	render() {
 		console.log("STATE", this.state);
 		const {labels, dataset, show, earnings, spending, age, investingRate} = this.state;
+		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
 
 		const chartData = {
@@ -92,12 +102,14 @@ class IndexPage extends React.Component {
 
 		if (earnings > spending) {
 			message = <div>
+				<h3>How You Could Invest</h3>
 				<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
 				<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
-				<p>By investing {investingRate}% of your surplus income, you'll have {formatter.format(((earnings - spending) * investingRate)/100)} to invest on a monthly basis. It may not seem a lot to start, but bit by bit that {formatter.format(((earnings - spending) * investingRate)/100)} will grow, as shown in the graph above.</p>
+				<p>By investing <span className="highlight">{investingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to invest on a monthly basis. It may not seem a lot to start, but bit by bit that <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> will grow, as shown in the graph above. And by the time you retire, that investment will be worth <span className="highlight">{formatter.format(dataset[dataset.length - 1])}</span>.</p>
 			</div>
 		} else {
 			message = <div>
+				<h3>Hold Your Horses</h3>
 				<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. This means you won't have regular savings from which to invest. You might want to consider how you can boost your earnings or reduce your monthly spending.</p>
 			</div>
 		}
@@ -153,9 +165,12 @@ class IndexPage extends React.Component {
 					<div>
 						{message}
 						<div className="slidecontainer">
-							<label for="investingRate">Investing Rate - {investingRate}%</label>
+							<h3>Change Your Investing</h3>
+							<label htmlFor="investingRate">Investing Rate - {investingRate}%</label>
 							<input name="investingRate" type="range" min="1" max="50" value={investingRate} onChange={this.handleChange} className="slider" id="myRange" />
-							<button onClick={this.handleSubmit}>Show me the money!</button>
+							<div className="button-container">
+								<button onClick={this.handleSubmit}>Show me the money!</button>
+							</div>
 						</div>
 					</div>
 				</div>}				
