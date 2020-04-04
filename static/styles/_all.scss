@@ -3,15 +3,18 @@
 
 $break-small: 719px;
 $base-size: 16px;
-$base-font: Inter;
+$sans-serif-font: Inter;
+$serif-font: PT Serif;
 $logo-font: 'Bungee Inline', cursive;
 $font-darker: #1E1C21;
 $font-lighter: #909A94;
 $background-color: #FDF5E6;
+$white-color: #FDFAFF;
 $highlight-color: #e65d07;
+$spacing-unit: 12px;
 
 body {
-  font-family: $base-font;
+  font-family: $serif-font;
   line-height: normal;
   background-color: $background-color;
   font-size: $base-size;
@@ -23,7 +26,7 @@ body {
   }
 
   a {
-    color: #8953B7;
+    color:$highlight-color;
 
     &:hover, &:active {
       color: #8953b7;
@@ -31,8 +34,9 @@ body {
   }
 
   header {
-    background-color: #FDFAFF;
-    // padding: 20px 0;
+    background-color: $white-color;
+    padding: $spacing-unit 0;
+    margin-bottom: 2 * $spacing-unit;
 
     div {
       display: flex;
@@ -40,10 +44,6 @@ body {
       align-items: center;
   
       .logo {
-        // img {
-        //   width: 60px;
-        //   height: 60px;
-        // }
         font-family: $logo-font;
       }
 
@@ -121,11 +121,11 @@ body {
       color: $font-darker;
 
       div {
+        margin-left: 5px;
         display: inline-block;
 
         span {
           color: $highlight-color;
-          padding-left: 3px;
         }
       }
 
@@ -134,13 +134,8 @@ body {
         background-color: inherit;
         border: none;
         color: $highlight-color;
-        font-family: $base-font;
+        font-family: $sans-serif-font;
         font-size: $base-size;
-        // text-decoration: underline dotted black;
-
-        // &::before {
-        //   content: "£"
-        // }
 
         &::-webkit-input-placeholder {
           text-decoration: underline dotted black;
