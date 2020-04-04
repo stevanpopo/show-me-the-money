@@ -30,26 +30,26 @@ class IndexPage extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 
-		const difference = this.state.earnings - this.state.spending;
+		const monthlyContribution = (this.state.earnings - this.state.spending) * (this.state.investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
-		const {years, data} = this.produceData(difference, yearsToInvest)
+		const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
 
 		this.setState({ labels: years, dataset: data, show: true})
 	}
 
-	produceData(difference, numberOfYears){
+	produceData(monthlyContribution, numberOfYears){
 		const years = this.getDates(numberOfYears)
-		const data = this.createData(difference, years.length)
+		const data = this.createData(monthlyContribution, years.length)
 		
 		return {years, data}
 	}
 
-	createData(difference, years) {
+	createData(monthlyContribution, years) {
 		const data = []
 
 		for(let i = 1; i <= years; i++) {
-			difference = difference * 1.08;
-			data.push(difference);
+			monthlyContribution = monthlyContribution * 1.08;
+			data.push(monthlyContribution);
 		}
 
 		return data;
@@ -152,8 +152,10 @@ class IndexPage extends React.Component {
 					</div>
 					<div>
 						{message}
-						<div>
-							Levers
+						<div className="slidecontainer">
+							<label for="investingRate">Investing Rate - {investingRate}%</label>
+							<input name="investingRate" type="range" min="1" max="50" value={investingRate} onChange={this.handleChange} className="slider" id="myRange" />
+							<button onClick={this.handleSubmit}>Show me the money!</button>
 						</div>
 					</div>
 				</div>}				
