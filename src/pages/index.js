@@ -17,7 +17,8 @@ class IndexPage extends React.Component {
 			age: 21,
 			labels: ["2020", "2021", "2022", "2023", "2024"],
 			dataset: [2, 3, 4.5, 6, 10],
-			investingRate: 20
+			investingRate: 20,
+			newInvestingRate: 20
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -33,11 +34,12 @@ class IndexPage extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 
-		const monthlyContribution = (this.state.earnings - this.state.spending) * (this.state.investingRate/100);
+		const investingRate = this.state.newInvestingRate;
+		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
 		const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
 
-		this.setState({ labels: years, dataset: data, show: true})
+		this.setState({ labels: years, dataset: data, show: true, investingRate})
 	}
 
 	produceData(monthlyContribution, numberOfYears){
@@ -89,7 +91,7 @@ class IndexPage extends React.Component {
 
 	render() {
 		console.log("STATE", this.state);
-		const {labels, dataset, show, earnings, spending, investingRate} = this.state;
+		const {labels, dataset, show, earnings, spending, investingRate, newInvestingRate} = this.state;
 		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
 		const options = {
@@ -192,8 +194,9 @@ class IndexPage extends React.Component {
 						{message}
 						<div className="slidecontainer">
 							<h3>Change Your Investing</h3>
-							<label htmlFor="investingRate">Investing Rate - {investingRate}%</label>
-							<input name="investingRate" type="range" min="1" max="50" value={investingRate} onChange={this.handleChange} className="slider" id="myRange" />
+							<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
+							<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
+							<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 							{/* TODO: salary increase */}
 
 							<div className="button-container">
