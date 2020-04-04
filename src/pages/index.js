@@ -1,7 +1,11 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Bar } from 'react-chartjs-2';
+import { Bar, defaults } from 'react-chartjs-2';
+
+defaults.global.defaultFontFamily = "'Lato', sans-serif"
+defaults.global.defaultColor = 'red';
+defaults.global.defaultFontColor = 'red';
 
 class IndexPage extends React.Component {
 	constructor(props) {
@@ -88,6 +92,17 @@ class IndexPage extends React.Component {
 		const {labels, dataset, show, earnings, spending, investingRate} = this.state;
 		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
+		const options = {
+			scales: {
+				yAxes: [{
+					ticks: {
+						callback: function(value) {
+							return value.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
+						}
+					}
+				}]
+			}
+		}
 
 		const chartData = {
 			labels: labels,
@@ -163,7 +178,8 @@ class IndexPage extends React.Component {
 							data={chartData}
 							// width={100}
 							// height={50}
-							// options={{ maintainAspectRatio: false }}
+							// maintainAspectRatio: false
+							options={options}
 						/>
 					</div>
 					<div>
