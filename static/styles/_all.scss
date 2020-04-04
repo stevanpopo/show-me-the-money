@@ -106,12 +106,18 @@ body {
 
     div {
       color: $font-lighter;
+      font-size: smaller;
     }
 
     label {
       display: block;
       line-height: 2rem;
       color: $font-darker;
+      font-size: $base-size;
+
+      &:last-child {
+        margin-bottom: $spacing-unit;
+      }
 
       div {
         margin-left: 5px;
@@ -130,12 +136,12 @@ body {
         font-family: $sans-serif-font;
         font-size: $base-size;
 
-        &::-webkit-input-placeholder {
-          text-decoration: underline dotted black;
-        }
-        &::-moz-input-placeholder {
-          text-decoration: underline dotted black;
-        }      
+        // &::-webkit-input-placeholder {
+        //   text-decoration: underline dotted black;
+        // }
+        // &::-moz-input-placeholder {
+        //   text-decoration: underline dotted black;
+        // }      
         &:focus {
           outline: none
         }

@@ -8,6 +8,7 @@ class IndexPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			show: false,
 			earnings: 1000,
 			spending: 1000,
 			age: 21,
@@ -30,14 +31,16 @@ class IndexPage extends React.Component {
 
 		const difference = this.state.earnings - this.state.spending;
 		const yearsToInvest = 70 - this.state.age;
-		this.produceData(difference, yearsToInvest)
+		const {years, data} = this.produceData(difference, yearsToInvest)
+
+		this.setState({ labels: years, dataset: data, show: true})
 	}
 
 	produceData(difference, numberOfYears){
 		const years = this.getDates(numberOfYears)
 		const data = this.createData(difference, years.length)
-
-		this.setState({ labels: years, dataset: data})
+		
+		return {years, data}
 	}
 
 	createData(difference, years) {
@@ -66,11 +69,10 @@ class IndexPage extends React.Component {
 	// 	return parseInt(number).toFixed(2)
 	// }
 
-	
 
 	render() {
 		console.log("STATE", this.state);
-		const {labels, dataset} = this.state;
+		const {labels, dataset, show} = this.state;
 
 		const chartData = {
 			labels: labels,
@@ -125,7 +127,7 @@ class IndexPage extends React.Component {
 					</form>
 				</div>
 
-				<div className="results container">
+				{show && <div className="results container">
 					<div className="chart">
 						<Bar
 							data={chartData}
@@ -143,7 +145,7 @@ class IndexPage extends React.Component {
 							Levers
 						</div>
 					</div>
-				</div>				
+				</div>}				
 			</Layout>
 		);
 		}
