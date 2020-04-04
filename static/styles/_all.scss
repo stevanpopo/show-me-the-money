@@ -1,6 +1,10 @@
+
+@import url(https://fonts.googleapis.com/css?family=Bungee+Inline&display=swap);
+
 $break-small: 719px;
 $base-size: 16px;
 $base-font: Inter;
+$logo-font: 'Bungee Inline', cursive;
 $font-darker: #1E1C21;
 $font-lighter: #909A94;
 $background-color: #FDF5E6;
@@ -36,10 +40,11 @@ body {
       align-items: center;
   
       .logo {
-        img {
-          width: 60px;
-          height: 60px;
-        }
+        // img {
+        //   width: 60px;
+        //   height: 60px;
+        // }
+        font-family: $logo-font;
       }
 
       a {

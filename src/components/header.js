@@ -1,7 +1,6 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import logo from "../../static/images/logo.svg"
 import { FaTwitterSquare } from 'react-icons/fa';
 
 const Header = ({ siteTitle }) => (
@@ -9,12 +8,12 @@ const Header = ({ siteTitle }) => (
 		<div className="container">
 			<div className="logo">
 				<Link to="/" title={siteTitle}>
-					{/* <img alt="Logo" src={logo}/> */}
-					Logo
+					<span role="img" aria-label="moneybag">💰</span>
+					show me the money
 				</Link>
 			</div>
 
-			<a href="https://app.histaff.io">
+			<a className="twitter-share-button" href="https://twitter.com/intent/tweet?text=I%20just%20learned%20how%20powerful%20investing%20is!%20&hashtags=showmethemoney">
 				<FaTwitterSquare />
 			</a>
 		</div>
