@@ -4,8 +4,8 @@ import SEO from "../components/seo"
 import { Bar, defaults } from 'react-chartjs-2';
 
 defaults.global.defaultFontFamily = "'Lato', sans-serif"
-defaults.global.defaultColor = 'red';
-defaults.global.defaultFontColor = 'red';
+defaults.global.defaultColor = '#e65d07';
+defaults.global.defaultFontColor = '#e65d07';
 
 class IndexPage extends React.Component {
 	constructor(props) {
@@ -95,6 +95,16 @@ class IndexPage extends React.Component {
 		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
 		const options = {
+			// tooltips: {
+			// 	callbacks: {
+			// 		title: function(tooltipItem, data) {
+			// 			return data['labels'][tooltipItem[0]['index']];
+			// 		},
+			// 		label: function(tooltipItem, data) {
+			// 			return tooltipItem.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
+			// 		}
+			// 	}
+			// },
 			scales: {
 				yAxes: [{
 					ticks: {
