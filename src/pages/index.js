@@ -8,9 +8,9 @@ class IndexPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			earnings: 0,
-			spending: 0,
-			age: '',
+			earnings: 1000,
+			spending: 1000,
+			age: 21,
 			labels: ["2020", "2021", "2022", "2023", "2024"],
 			dataset: [2, 3, 4.5, 6, 10]
 		};
@@ -21,6 +21,7 @@ class IndexPage extends React.Component {
 
 	handleChange(e) {
 		const field = e.target.name;
+		// const value = this.formatCurrency(e.target.value)
 		this.setState({ [field]: e.target.value })
 	}
 
@@ -60,6 +61,13 @@ class IndexPage extends React.Component {
 		return dates;
 	}
 
+	// formatCurrency(number){
+	// 	console.log("NUMBER: ", number, typeof number);
+	// 	return parseInt(number).toFixed(2)
+	// }
+
+	
+
 	render() {
 		console.log("STATE", this.state);
 		const {labels, dataset} = this.state;
@@ -71,6 +79,12 @@ class IndexPage extends React.Component {
 				data: dataset
 			}]
 		}
+
+		const formatter = new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 2
+		})
 
 		return (
 			<Layout>
@@ -91,17 +105,17 @@ class IndexPage extends React.Component {
 						<div>
 							<label>
 								How much do you earn per month?
-							<input type="text" name="earnings" placeholder="e.g. 2,000" onChange={this.handleChange} />
+								<div><span className="currency">£</span><input type="text" name="earnings" value={this.state.earnings} onChange={this.handleChange} /></div>
 							</label>
 							<label>
 								How much do you spend per month?
-							<input type="text" name="spending" placeholder="e.g. 1,200" onChange={this.handleChange} />
+								<div><span className="currency">£</span><input type="text" name="spending" value={this.state.spending} onChange={this.handleChange} /></div>
 							</label>
 							<label>
 								How old are you?
-							<input type="text" name="age" placeholder="e.g. 22" onChange={this.handleChange} />
+								<input type="text" name="age" value={this.state.age} onChange={this.handleChange} />
 							</label>
-							Please note we do not save any of your personal information.
+							Please note, we do not save any of your personal information.
 						</div>
 						<div>
 							<button>Show me the money!</button>
