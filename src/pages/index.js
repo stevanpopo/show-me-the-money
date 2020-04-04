@@ -100,6 +100,12 @@ class IndexPage extends React.Component {
 							return value.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
 						}
 					}
+				}],
+				xAxes: [{
+					scaleLabel: {
+						display: true,
+						labelString: 'Age'
+					}
 				}]
 			}
 		}
