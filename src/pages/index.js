@@ -80,20 +80,22 @@ class IndexPage extends React.Component {
 			}]
 		}
 
-		const formatter = new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			minimumFractionDigits: 2
-		})
+		// const formatter = new Intl.NumberFormat('en-US', {
+		// 	style: 'currency',
+		// 	currency: 'USD',
+		// 	minimumFractionDigits: 2
+		// })
 
 		return (
 			<Layout>
-				<SEO title="Make your Staff and Workspace Happy" />
+				<SEO title="Investing grows your wealth" />
 
 				<div className="home container">
 					<div>
-						<h1>Show Me The Money</h1>
-						<p>This is why you should invest. This is why you should invest. This is why you should invest. This is why you should invest. </p>
+						<h2>Investing builds wealth</h2>
+						<p>That is why <a href="https://data.worldbank.org/indicator/CM.MKT.LCAP.CD?most_recent_value_desc=true">$80 trillion</a> globally is held in the stock market. On average, the major stock markets grow by 8% per year.</p>
+						<p>If you invest in the stock market, your money grows too. Over a long time, it grows a lot.</p>
+						<p>Let's see how.</p>
 					</div>
 					<div>
 						<iframe height="315" src="https://www.youtube.com/embed/FCgy0dphOGc?modestbranding=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>

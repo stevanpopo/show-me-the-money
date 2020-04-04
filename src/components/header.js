@@ -8,12 +8,14 @@ const Header = ({ siteTitle }) => (
 		<div className="container">
 			<div className="logo">
 				<Link to="/" title={siteTitle}>
-					<span role="img" aria-label="moneybag">💰</span>
-					show me the money
+					<h1>
+						<span role="img" aria-label="moneybag">💰</span>
+						show me the money
+					</h1>
 				</Link>
 			</div>
 
-			<a className="twitter-share-button" href="https://twitter.com/intent/tweet?text=I%20just%20learned%20how%20powerful%20investing%20is!%20&hashtags=showmethemoney">
+			<a className="twitter-share" href="https://twitter.com/intent/tweet?text=I%20just%20learned%20how%20powerful%20investing%20is!%20&hashtags=showmethemoney">
 				<FaTwitterSquare />
 			</a>
 		</div>
