@@ -1,9 +1,10 @@
 
 body {
   font-family: $serif-font;
-  line-height: normal;
-  background-color: $background-color;
   font-size: $base-size;
+  // line-height: normal;
+  line-height: 1.46rem;
+  background-color: $background-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -38,7 +39,7 @@ body {
   }
 
   span.highlight {
-    color: $highlight-color
+    color: $brand-color
   }
 
   .smaller {
@@ -50,10 +51,10 @@ body {
   }
 
   a {
-    color:$highlight-color;
+    color:$brand-color;
 
     &:hover, &:active {
-      color: #8953b7;
+      color: $highlight-color;
     }
   }
 
@@ -135,7 +136,7 @@ body {
         display: inline-block;
 
         span {
-          color: $highlight-color;
+          color: $brand-color;
         }
       }
 
@@ -143,7 +144,7 @@ body {
         display: inline-block;
         background-color: inherit;
         border: none;
-        color: $highlight-color;
+        color: $brand-color;
         font-family: $sans-serif-font;
         font-size: $base-size;
 
@@ -168,7 +169,7 @@ body {
         margin: 0 auto;
         width: 150px;
         height: 60px;
-        background-color: $highlight-color;
+        background-color: $brand-color;
         color: white;
         border-radius: 5px;
         font-size: $base-size;
@@ -204,7 +205,7 @@ body {
           margin: 0 auto;
           width: 150px;
           height: 60px;
-          background-color: $highlight-color;
+          background-color: $brand-color;
           color: white;
           border-radius: 5px;
           font-size: $base-size;
