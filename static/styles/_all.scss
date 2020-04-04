@@ -1,6 +1,4 @@
 
-@import url(https://fonts.googleapis.com/css?family=Bungee+Inline&display=swap);
-
 body {
   font-family: $serif-font;
   line-height: normal;
@@ -39,6 +37,12 @@ body {
 
   span.highlight {
     color: $highlight-color
+  }
+
+  .smaller {
+    margin-top: 2 * $spacing-unit;
+    color: $font-lighter;
+    font-size: smaller;
   }
 
   a {
@@ -111,11 +115,6 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 40px;
-
-    div {
-      color: $font-lighter;
-      font-size: smaller;
-    }
 
     label {
       display: block;

@@ -1,8 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-// import featureImage from "../../static/images/hero.png";
-import { Line, Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 class IndexPage extends React.Component {
 	constructor(props) {
@@ -86,7 +85,7 @@ class IndexPage extends React.Component {
 
 	render() {
 		console.log("STATE", this.state);
-		const {labels, dataset, show, earnings, spending, age, investingRate} = this.state;
+		const {labels, dataset, show, earnings, spending, investingRate} = this.state;
 		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
 
@@ -130,7 +129,7 @@ class IndexPage extends React.Component {
 						<p>Let's see how.</p>
 					</div>
 					<div>
-						<iframe height="315" src="https://www.youtube.com/embed/FCgy0dphOGc?modestbranding=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+						<iframe title="show me the money scene in Jerry Maguire" height="315" src="https://www.youtube.com/embed/FCgy0dphOGc?modestbranding=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 					</div>
 				</div>
 
@@ -149,7 +148,8 @@ class IndexPage extends React.Component {
 								How old are you?
 								<input type="text" name="age" value={this.state.age} onChange={this.handleChange} />
 							</label>
-							Please note, we do not save any of your personal information.
+
+							<p className="smaller">Please note, we do not save any of your personal information.</p>
 						</div>
 						<div>
 							<button>Show me the money!</button>

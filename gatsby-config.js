@@ -32,11 +32,7 @@ module.exports = {
             resolve: 'gatsby-plugin-web-font-loader',
             options: {
                 google: {
-                    families: ['PT Serif'],
-                },
-                custom: {
-                    families: ['Inter'],
-                    urls: ['/fonts/fonts.css']
+                    families: ['Bungee Inline', 'Lato', 'Lora'],
                 }
             }
         },
