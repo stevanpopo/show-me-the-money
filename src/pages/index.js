@@ -13,7 +13,8 @@ class IndexPage extends React.Component {
 			spending: 1000,
 			age: 21,
 			labels: ["2020", "2021", "2022", "2023", "2024"],
-			dataset: [2, 3, 4.5, 6, 10]
+			dataset: [2, 3, 4.5, 6, 10],
+			investingRate: 10
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -72,7 +73,8 @@ class IndexPage extends React.Component {
 
 	render() {
 		console.log("STATE", this.state);
-		const {labels, dataset, show} = this.state;
+		const {labels, dataset, show, earnings, spending, age, investingRate} = this.state;
+		let message = ""
 
 		const chartData = {
 			labels: labels,
@@ -82,11 +84,23 @@ class IndexPage extends React.Component {
 			}]
 		}
 
-		// const formatter = new Intl.NumberFormat('en-US', {
-		// 	style: 'currency',
-		// 	currency: 'USD',
-		// 	minimumFractionDigits: 2
-		// })
+		const formatter = new Intl.NumberFormat('en-GB', {
+			style: 'currency',
+			currency: 'GBP',
+			minimumFractionDigits: 2
+		})
+
+		if (earnings > spending) {
+			message = <div>
+				<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
+				<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
+				<p>By investing {investingRate}% of your surplus income, you'll have {formatter.format(((earnings - spending) * investingRate)/100)} to invest on a monthly basis. It may not seem a lot to start, but bit by bit that {formatter.format(((earnings - spending) * investingRate)/100)} will grow, as shown in the graph above.</p>
+			</div>
+		} else {
+			message = <div>
+				<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. This means you won't have regular savings from which to invest. You might want to consider how you can boost your earnings or reduce your monthly spending.</p>
+			</div>
+		}
 
 		return (
 			<Layout>
@@ -137,10 +151,7 @@ class IndexPage extends React.Component {
 						/>
 					</div>
 					<div>
-						<div>
-							<p>You earn £{this.state.earnings} a month and spend £{this.state.spending} a month. Great, you're living within your means!</p>
-							<p>That gives you £{this.state.earnings - this.state.spending} to save and invest. By investing X of your surplus income in the S&P 500, you can earn 8% a year.</p>
-						</div>
+						{message}
 						<div>
 							Levers
 						</div>
