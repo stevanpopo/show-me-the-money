@@ -14,7 +14,7 @@ class IndexPage extends React.Component {
 			age: 21,
 			labels: ["2020", "2021", "2022", "2023", "2024"],
 			dataset: [2, 3, 4.5, 6, 10],
-			investingRate: 10
+			investingRate: 20
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -65,11 +65,15 @@ class IndexPage extends React.Component {
 	}
 
 	getDates(years){
-		const today = new Date().getFullYear()
-		const retirement = today + years
+		// const today = new Date().getFullYear()
+		// const retirement = today + years
+
+		const age = parseInt(this.state.age);
+		const retirement = age + years
     const dates = [];
 
-		for(let i = today; i <= retirement; i++) dates.push(i.toString());
+		// for(let i = today; i <= retirement; i++) dates.push(i.toString());
+		for(let i = age; i <= retirement; i++) dates.push(i);
 		 
 		return dates;
 	}
@@ -168,6 +172,8 @@ class IndexPage extends React.Component {
 							<h3>Change Your Investing</h3>
 							<label htmlFor="investingRate">Investing Rate - {investingRate}%</label>
 							<input name="investingRate" type="range" min="1" max="50" value={investingRate} onChange={this.handleChange} className="slider" id="myRange" />
+							{/* TODO: salary increase */}
+
 							<div className="button-container">
 								<button onClick={this.handleSubmit}>Show me the money!</button>
 							</div>
