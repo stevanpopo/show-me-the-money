@@ -1,23 +1,27 @@
 
 @import url(https://fonts.googleapis.com/css?family=Bungee+Inline&display=swap);
 
-$break-small: 719px;
-$base-size: 16px;
-$sans-serif-font: Inter;
-$serif-font: PT Serif;
-$logo-font: 'Bungee Inline', cursive;
-$font-darker: #1E1C21;
-$font-lighter: #909A94;
-$background-color: #FDF5E6;
-$white-color: #FDFAFF;
-$highlight-color: #e65d07;
-$spacing-unit: 12px;
-
 body {
   font-family: $serif-font;
   line-height: normal;
   background-color: $background-color;
   font-size: $base-size;
+
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  @media only screen and (min-width: 33.75em) {  /* 540px */
+    .container {
+      width: 80%;
+    }
+  }
+  @media only screen and (min-width: 60em) { /* 960px */
+    .container {
+      width: 75%;
+      max-width: 60rem;
+    }
+  }
 
   h2, h3, h4, h5, h6 {
     font-family: $serif-font;

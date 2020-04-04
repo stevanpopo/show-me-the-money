@@ -1,8 +1,8 @@
 module.exports = {
     siteMetadata: {
-        title: `HiStaff`,
-        description: `Make your Staff and Workspace Happy`,
-        author: `@mostafasoufi`,
+        title: `Show Me The Money`,
+        description: `Learn the power of investing`,
+        author: `@stevanpopo`,
     },
     plugins: [
         `gatsby-plugin-react-helmet`,
@@ -24,7 +24,7 @@ module.exports = {
                 background_color: `#663399`,
                 theme_color: `#FF54AC`,
                 display: `minimal-ui`,
-                icon: `${__dirname}/static/images/histaff.png`, // This path is relative to the root of the site.
+                icon: `${__dirname}/static/images/favicon-32x32.png`, // This path is relative to the root of the site.
             },
         },
         `gatsby-plugin-sass`,
