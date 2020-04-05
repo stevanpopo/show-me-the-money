@@ -5,6 +5,7 @@ html {
 body {
   font-family: $serif-font;
   font-size: $base-size;
+  color: $font-darker;
   // line-height: normal;
   line-height: 1.46rem;
   background-color: $background-color;
@@ -290,6 +291,31 @@ body {
         grid-template-columns: min-content 3fr;
         // grid-template-columns: 170px 3fr;
         grid-gap: $spacing-unit;
+      }
+
+      .nutmeg {
+        color: $nutmeg;
+        font-weight: bold;
+      }
+      .vanguard {
+        color: $vanguard;
+        font-weight: bold;
+      }
+      .freetrade {
+        color: $freetrade;
+        font-weight: bold;
+      }
+      .hl {
+        color: $hl;
+        font-weight: bold;
+      }
+      .finimize {
+        color: $finimize;
+        font-weight: bold;
+      }
+      .mywallst {
+        color: $mywallst;
+        font-weight: bold;
       }
     }
   }

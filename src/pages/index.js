@@ -226,17 +226,17 @@ class IndexPage extends React.Component {
 							<h3>Tools for Investing</h3>
 							<p>You can invest in the stock market in a number of ways. Below we list some tools to help you do so.</p>
 							<ul>
-								<div>Nutmeg</div>
+								<div className="nutmeg">Nutmeg</div>
 								<li>Create a diversified portfolio or ISA.</li>
-								<div>Vanguard</div>
+								<div className="vanguard">Vanguard</div>
 								<li>Invest in a range of low-cost index funds and ETFs.</li>
-								<div>Freetrade</div>
+								<div className="freetrade">Freetrade</div>
 								<li>Pick and choose ETFs or individual stocks with no-fees.</li>
-								<div>Hargreaves Lansdown</div>
+								<div className="hl">Hargreaves Lansdown</div>
 								<li>Choose funds, ETFs or individual stocks.</li>
-								<div>Finimize</div>
+								<div className="finimize">Finimize</div>
 								<li>A bite-sized newsletter highlighting market news.</li>
-								<div>The Stock Club</div>
+								<div className="mywallst">The Stock Club</div>
 								<li>An excellent podcast discussing markets and individual companies.</li>
 							</ul>
 						</div>
