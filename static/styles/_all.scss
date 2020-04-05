@@ -113,6 +113,10 @@ body {
     margin-bottom: 40px;
 
     @media screen and (max-width: $break-mid) {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+    @media screen and (max-width: $break-small) {
       display: block;
     }
 
@@ -147,6 +151,7 @@ body {
         color: $brand-color;
         font-family: $sans-serif-font;
         font-size: $base-size;
+        width: 50px;
 
         // &::-webkit-input-placeholder {
         //   text-decoration: underline dotted black;
@@ -162,11 +167,10 @@ body {
 
     div:nth-child(2){
       display: flex;
-      place-items: center;
 
       button {
         // TODO: why do I need this if place-items is set?
-        margin: 0 auto;
+        margin: $spacing-unit auto 0;
         width: 150px;
         height: 60px;
         background-color: $brand-color;
@@ -204,7 +208,7 @@ body {
         grid-gap: 2 * $spacing-unit
       }
 
-      @media screen and (max-width: $break-mid) {
+      @media screen and (max-width: $break-small) {
         section {
           display: block;
         }
