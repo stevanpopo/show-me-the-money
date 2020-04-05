@@ -194,31 +194,54 @@ class IndexPage extends React.Component {
 					</form>
 				</div>
 
-				<div className="results container" ref={this.scrollRef}>
-					{show && <div>
-						<div className="chart">
-							<Bar
-								data={chartData}
-								options={options}
-								// maintainAspectRatio: false
-							/>
-						</div>
-						<div>
-							{message}
-							<div className="slidecontainer">
-								<h3>Change Your Investing</h3>
-								<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
-								<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-								<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
-								<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
-								{/* TODO: salary increase */}
+				<div className="show container" ref={this.scrollRef}>
+					{show &&
+					<div>
+						<div className="results">
+							<div className="chart">
+								<Bar
+									data={chartData}
+									options={options}
+									// maintainAspectRatio: false
+								/>
+							</div>
+							<div>
+								{message}
+								<div className="slidecontainer">
+									<h3>Change Your Investing</h3>
+									<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
+									<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
+									<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
+									<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+									{/* TODO: salary increase */}
 
-								<div className="button-container">
-									<button onClick={this.handleSubmit}>Show me the money!</button>
+									<div className="button-container">
+										<button onClick={this.handleSubmit}>Show me the money!</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>}
+					
+						<div className="tools">
+							<h3>Tools for Investing</h3>
+							<p>You can invest in the stock market in a number of ways. Below we list some tools to help you do so.</p>
+							<ul>
+								<div>Nutmeg</div>
+								<li>Create a diversified portfolio or ISA.</li>
+								<div>Vanguard</div>
+								<li>Invest in a range of low-cost index funds and ETFs.</li>
+								<div>Freetrade</div>
+								<li>Pick and choose ETFs or individual stocks with no-fees.</li>
+								<div>Hargreaves Lansdown</div>
+								<li>Choose funds, ETFs or individual stocks.</li>
+								<div>Finimize</div>
+								<li>A bite-sized newsletter highlighting market news.</li>
+								<div>The Stock Club</div>
+								<li>An excellent podcast discussing markets and individual companies.</li>
+							</ul>
+						</div>
+					</div>
+					}
 					
 				</div>				
 			</Layout>

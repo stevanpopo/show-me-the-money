@@ -27,10 +27,6 @@ body {
     }
   }
 
-  main {
-    min-height: 80vh;
-  }
-
   h2, h3, h4, h5, h6 {
     font-family: $serif-font;
     color: $font-darker;
@@ -196,16 +192,20 @@ body {
     }
   }
 
-  .results {
+  .show {
+
+    div.results, div.tools {
+      margin-top: 3 * $spacing-unit;
+    }
 
     .chart {
       width: 80%;
       margin: 0 auto;
     }
 
-    > div {
+    .results {
       > div:nth-child(2) {
-        margin-top: 2rem;
+        margin-top: 2 * $spacing-unit;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 2 * $spacing-unit
@@ -281,6 +281,16 @@ body {
       background: $highlight-color;
       cursor: pointer;
       border-radius: 4px;
+    }
+
+    .tools {
+
+      ul {
+        display: grid;
+        grid-template-columns: min-content 3fr;
+        // grid-template-columns: 170px 3fr;
+        grid-gap: $spacing-unit;
+      }
     }
   }
 
