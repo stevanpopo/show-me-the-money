@@ -70,14 +70,10 @@ class IndexPage extends React.Component {
 	}
 
 	getDates(years){
-		// const today = new Date().getFullYear()
-		// const retirement = today + years
-
 		const age = parseInt(this.state.age);
 		const retirement = age + years
     const dates = [];
 
-		// for(let i = today; i <= retirement; i++) dates.push(i.toString());
 		for(let i = age; i <= retirement; i++) dates.push(i);
 		 
 		return dates;
@@ -91,8 +87,6 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		console.log("STATE", this.state);
-		// console.log("THIS", this);
 		const {labels, dataset, show, earnings, spending, investingRate, newInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
 	
@@ -132,7 +126,6 @@ class IndexPage extends React.Component {
 				label: "Your Wealth",
 				data: dataset,
 				backgroundColor: "rgba(7,144,230,0.4)", 
-				// backgroundColor: "#e65d07", 
 			}]
 		}
 
