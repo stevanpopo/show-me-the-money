@@ -188,6 +188,11 @@ body {
     .chart {
       width: 80%;
       margin: 0 auto;
+      
+      .chart-annotation {
+        text-align: center;
+        margin: 10px 0;
+      }
     }
 
     .results {

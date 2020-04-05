@@ -230,6 +230,7 @@ class IndexPage extends React.Component {
 									options={options}
 									// maintainAspectRatio: false
 								/>
+								<p className="smaller chart-annotation">We calculate returns using monthly compounding and 8% average growth.</p>
 							</div>
 						}	
 						{show && 
