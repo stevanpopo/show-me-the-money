@@ -205,7 +205,8 @@ body {
     }
 
     .results {
-      > div:nth-child(2) {
+
+      section {
         margin-top: 2 * $spacing-unit;
         display: grid;
         grid-template-columns: 1fr 1fr;

@@ -4,12 +4,12 @@ import SEO from "../components/seo"
 import { Bar, defaults } from 'react-chartjs-2';
 
 defaults.global.defaultFontFamily = "'Lato', sans-serif"
-defaults.global.defaultColor = '#e65d07';
-defaults.global.defaultFontColor = '#e65d07';
+// defaults.global.defaultFontColor = '#e65d07';
 
 class IndexPage extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			show: false,
 			scroll: false,
@@ -41,7 +41,7 @@ class IndexPage extends React.Component {
 		const yearsToInvest = 70 - this.state.age;
 		const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
 
-		this.setState({ labels: years, dataset: data, show: true, scroll: true, investingRate})
+		this.setState({ labels: years, dataset: data, investingRate, show: true, scroll: true})
 	}
 
 	produceData(monthlyContribution, numberOfYears){
@@ -91,10 +91,12 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		// console.log("STATE", this.state);
+		console.log("STATE", this.state);
 		// console.log("THIS", this);
 		const {labels, dataset, show, earnings, spending, investingRate, newInvestingRate} = this.state;
-		let message = ""
+		const showChart = show && earnings > spending;
+	
+		let result = "";
 
 		const options = {
 			tooltips: {
@@ -141,14 +143,28 @@ class IndexPage extends React.Component {
 		})
 
 		if (earnings > spending) {
-			message = <div>
-				<h3>How You Could Invest</h3>
-				<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
-				<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
-				<p>By investing <span className="highlight">{investingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to invest on a monthly basis. It may not seem like a lot to start, but bit by bit that <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> will grow, as shown in the graph above. And by the time you retire, that investment will be worth <span className="highlight">{formatter.format(dataset[dataset.length - 1])}</span>.</p>
-			</div>
+			result = <section>
+				<div>
+					<h3>How You Could Invest</h3>
+					<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
+					<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
+					<p>By investing <span className="highlight">{investingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to invest on a monthly basis. It may not seem like a lot to start, but bit by bit that <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> will grow, as shown in the graph above. And by the time you retire, that investment will be worth <span className="highlight">{formatter.format(dataset[dataset.length - 1])}</span>.</p>
+				</div>
+				<div className="slidecontainer">
+					<h3>Change Your Investing</h3>
+					<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
+					<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
+					<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
+					<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+					{/* TODO: salary increase */}
+
+					<div className="button-container">
+						<button onClick={this.handleSubmit}>Show me the money!</button>
+					</div>
+				</div>
+			</section>
 		} else {
-			message = <div>
+			result = <div>
 				<h3>Hold Your Horses</h3>
 				<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. This means you won't have regular savings from which to invest. You might want to consider how you can boost your earnings or reduce your monthly spending.</p>
 			</div>
@@ -195,9 +211,8 @@ class IndexPage extends React.Component {
 				</div>
 
 				<div className="show container" ref={this.scrollRef}>
-					{show &&
-					<div>
-						<div className="results">
+					<div className="results">
+						{showChart &&
 							<div className="chart">
 								<Bar
 									data={chartData}
@@ -205,43 +220,30 @@ class IndexPage extends React.Component {
 									// maintainAspectRatio: false
 								/>
 							</div>
-							<div>
-								{message}
-								<div className="slidecontainer">
-									<h3>Change Your Investing</h3>
-									<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
-									<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-									<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
-									<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
-									{/* TODO: salary increase */}
-
-									<div className="button-container">
-										<button onClick={this.handleSubmit}>Show me the money!</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					
-						<div className="tools">
-							<h3>Tools for Investing</h3>
-							<p>You can invest in the stock market in a number of ways. Below we list some tools to help you do so.</p>
-							<ul>
-								<div className="nutmeg">Nutmeg</div>
-								<li>Create a diversified portfolio or ISA.</li>
-								<div className="vanguard">Vanguard</div>
-								<li>Invest in a range of low-cost index funds and ETFs.</li>
-								<div className="freetrade">Freetrade</div>
-								<li>Pick and choose ETFs or individual stocks with no-fees.</li>
-								<div className="hl">Hargreaves Lansdown</div>
-								<li>Choose funds, ETFs or individual stocks.</li>
-								<div className="finimize">Finimize</div>
-								<li>A bite-sized newsletter highlighting market news.</li>
-								<div className="mywallst">The Stock Club</div>
-								<li>An excellent podcast discussing markets and individual companies.</li>
-							</ul>
-						</div>
+						}	
+						{show && 
+							result
+						}	
 					</div>
-					}
+					
+					{showChart && <div className="tools">
+						<h3>Tools for Investing</h3>
+						<p>You can invest in the stock market in a number of ways. Below we list some tools to help you do so.</p>
+						<ul>
+							<div className="nutmeg">Nutmeg</div>
+							<li>Create a diversified portfolio or ISA.</li>
+							<div className="vanguard">Vanguard</div>
+							<li>Invest in a range of low-cost index funds and ETFs.</li>
+							<div className="freetrade">Freetrade</div>
+							<li>Pick and choose ETFs or individual stocks with no-fees.</li>
+							<div className="hl">Hargreaves Lansdown</div>
+							<li>Choose funds, ETFs or individual stocks.</li>
+							<div className="finimize">Finimize</div>
+							<li>A bite-sized newsletter highlighting market news.</li>
+							<div className="mywallst">The Stock Club</div>
+							<li>An excellent podcast discussing markets and individual companies.</li>
+						</ul>
+					</div>}
 					
 				</div>				
 			</Layout>
