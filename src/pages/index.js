@@ -95,16 +95,19 @@ class IndexPage extends React.Component {
 		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
 		const options = {
-			// tooltips: {
-			// 	callbacks: {
-			// 		title: function(tooltipItem, data) {
-			// 			return data['labels'][tooltipItem[0]['index']];
-			// 		},
-			// 		label: function(tooltipItem, data) {
-			// 			return tooltipItem.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
-			// 		}
-			// 	}
-			// },
+			tooltips: {
+				callbacks: {
+					// title: function(tooltipItem, data) {
+					// 	return data['labels'][tooltipItem[0]['index']];
+					// },
+					label: (tooltipItem, data) => {
+						return formatter.format(tooltipItem.value)
+					}
+					// label: function(tooltipItem, data) {
+					// 	return tooltipItem.value.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
+					// }
+				}
+			},
 			scales: {
 				yAxes: [{
 					ticks: {
