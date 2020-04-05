@@ -97,9 +97,9 @@ class IndexPage extends React.Component {
 		const options = {
 			tooltips: {
 				callbacks: {
-					// title: function(tooltipItem, data) {
-					// 	return data['labels'][tooltipItem[0]['index']];
-					// },
+					title: function(tooltipItem, data) {
+						return `Age: ${tooltipItem[0].label}`
+					},
 					label: (tooltipItem, data) => {
 						return formatter.format(tooltipItem.value)
 					}
