@@ -125,7 +125,7 @@ class IndexPage extends React.Component {
 		const chartData = {
 			labels: labels,
 			datasets: [{
-				label: "Wealth",
+				label: "Your Wealth",
 				data: dataset
 			}]
 		}
