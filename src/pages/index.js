@@ -143,6 +143,15 @@ class IndexPage extends React.Component {
 		})
 
 		if (earnings > spending) {
+			let change = ""
+			if (newInvestingRate > investingRate){
+				change = <p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
+			} else if (investingRate > newInvestingRate){
+				change = <p>This would decrease your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
+			} else {
+				change = <p>You haven't changed your investing rate. Your monthly contribution will stay at <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span>.</p>
+			}
+
 			result = <section>
 				<div>
 					<h3>How You Could Invest</h3>
@@ -154,7 +163,7 @@ class IndexPage extends React.Component {
 					<h3>Change Your Investing</h3>
 					<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
 					<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-					<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
+					<p>{change}</p>
 					<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 					{/* TODO: salary increase */}
 
