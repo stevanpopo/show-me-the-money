@@ -158,13 +158,14 @@ class IndexPage extends React.Component {
 					<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
 					<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
 					<p>By investing <span className="highlight">{investingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to invest on a monthly basis. It may not seem like a lot to start, but bit by bit that <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> will grow, as shown in the graph above. And by the time you retire, that investment will be worth <span className="highlight">{formatter.format(dataset[dataset.length - 1])}</span>.</p>
+					<p className="smaller">Investing comes with risk. 8% is the <em>average</em> return over long time periods. In the short term, your investment may decrease in value.</p>
 				</div>
 				<div className="slidecontainer">
 					<h3>Change Your Investing</h3>
 					<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
 					<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
 					<p>{change}</p>
-					<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+					<input name="newInvestingRate" type="range" min="1" max="80" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 					{/* TODO: salary increase */}
 
 					<div className="button-container">
