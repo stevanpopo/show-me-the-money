@@ -12,34 +12,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  .container {
-    max-width: 80%;
-    margin: 0 auto;
-  }
-  // @media only screen and (min-width: 33.75em) {  /* 540px */
-  //   .container {
-  //     width: 80%;
-  //   }
-  // }
-  @media only screen and (min-width: 60em) { /* 960px */
-    .container {
-      width: 75%;
-      max-width: 60rem;
-    }
-  }
-  @media only screen and (max-width: $break-small) {
-    .container {
-      max-width: 92%;
-    }
-  }
-
   h2, h3, h4, h5, h6 {
     font-family: $serif-font;
     color: $font-darker;
   }
 
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
   h2 {
     font-size: 2rem;
+    line-height: 1.8rem;
     font-weight: bold;
   }
 
@@ -116,7 +101,7 @@ body {
       max-width: 65%;
     }
 
-    @media screen and (max-width: $break-small) {
+    @media screen and (max-width: $break-mid) {
       display: block;
     }
   }
@@ -126,7 +111,7 @@ body {
     grid-template-columns: 1fr 1fr;
     margin-bottom: 40px;
 
-    @media screen and (max-width: $break-small) {
+    @media screen and (max-width: $break-mid) {
       display: block;
     }
 
@@ -213,7 +198,7 @@ body {
         grid-gap: 2 * $spacing-unit
       }
 
-      @media screen and (max-width: $break-small) {
+      @media screen and (max-width: $break-mid) {
         section {
           display: block;
         }
@@ -352,7 +337,6 @@ body {
 
     @media screen and (max-width: $break-small) {
       margin-top: 2 * $spacing-unit;
-      // padding: 50px 0 45px;
     }
 
     .copyright {
@@ -364,6 +348,36 @@ body {
 
       p {
         font-size: 13px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $break-mid) {
+  body {
+    .container {
+      max-width: 70%;
+    }
+  }
+}
+@media screen and (max-width: $break-mid) {
+  body {
+    .container {
+      max-width: 82%;
+    }
+  }
+}
+@media screen and (max-width: $break-small) {
+  body {
+    .container {
+      max-width: 92%;
+    }
+
+    .show .tools ul {
+      display: block;
+
+      li {
+        margin-bottom: 1rem;
       }
     }
   }
