@@ -1,7 +1,6 @@
-html, body {
-  height: 100%;
+html {
+  scroll-behavior: smooth;
 }
-
 
 body {
   font-family: $serif-font;
@@ -26,6 +25,10 @@ body {
       width: 75%;
       max-width: 60rem;
     }
+  }
+
+  main {
+    min-height: 80vh;
   }
 
   h2, h3, h4, h5, h6 {
@@ -138,6 +141,11 @@ body {
 
       &:last-child {
         margin-bottom: $spacing-unit;
+
+        input {
+          margin-top: 20px;
+          margin-left: 25px;
+        }
       }
 
       div {
@@ -195,11 +203,13 @@ body {
       margin: 0 auto;
     }
 
-    > div:nth-child(2) {
-      margin-top: 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 20px;
+    > div {
+      > div:nth-child(2) {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+      }
     }
 
     .slidecontainer {
@@ -248,14 +258,6 @@ body {
     .slider:hover {
       opacity: 1;
     }
-
-    // .slider::-ms-track {
-    //   width: 100%;
-    //   cursor: pointer;
-    //   background: transparent; /* Hides the slider so custom styles can be added */
-    //   border-color: transparent;
-    //   color: transparent;
-    // }
 
     /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
     .slider::-webkit-slider-thumb {

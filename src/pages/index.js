@@ -12,22 +12,24 @@ class IndexPage extends React.Component {
 		super(props);
 		this.state = {
 			show: false,
+			scroll: false,
 			earnings: 1000,
 			spending: 1000,
 			age: 21,
 			labels: ["2020", "2021", "2022", "2023", "2024"],
 			dataset: [2, 3, 4.5, 6, 10],
 			investingRate: 20,
-			newInvestingRate: 20
+			newInvestingRate: 20,
+			shouldScroll: true
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.scrollRef = React.createRef()  
 	}
 
 	handleChange(e) {
 		const field = e.target.name;
-		// const value = this.formatCurrency(e.target.value)
 		this.setState({ [field]: e.target.value })
 	}
 
@@ -39,7 +41,7 @@ class IndexPage extends React.Component {
 		const yearsToInvest = 70 - this.state.age;
 		const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
 
-		this.setState({ labels: years, dataset: data, show: true, investingRate})
+		this.setState({ labels: years, dataset: data, show: true, scroll: true, investingRate})
 	}
 
 	produceData(monthlyContribution, numberOfYears){
@@ -59,13 +61,11 @@ class IndexPage extends React.Component {
 		let investmentValue = 0;
 
 		for(let i = 1; i <= months; i++) {
-			// console.log("Value: ", investmentValue, "Contribution: ", monthlyContribution);
 			investmentValue = (investmentValue + monthlyContribution) * (1 + monthlyRate);
 			monthlyInvestmentValues.push(investmentValue);
 			if (i % 12 === 0) yearlyInvestmentValues.push(investmentValue)
 		}
 
-		// console.log("YEARLY: ", yearlyInvestmentValues);
 		return yearlyInvestmentValues;
 	}
 
@@ -83,17 +83,19 @@ class IndexPage extends React.Component {
 		return dates;
 	}
 
-	// formatCurrency(number){
-	// 	console.log("NUMBER: ", number, typeof number);
-	// 	return parseInt(number).toFixed(2)
-	// }
-
+	componentDidUpdate() {
+		if(this.state.scroll){
+			window.scrollTo(0, this.scrollRef.current.offsetTop)
+			this.setState({scroll: false})
+		}
+  }
 
 	render() {
-		console.log("STATE", this.state);
+		// console.log("STATE", this.state);
+		// console.log("THIS", this);
 		const {labels, dataset, show, earnings, spending, investingRate, newInvestingRate} = this.state;
-		// console.log("CLOSING", dataset[dataset.length - 1]);
 		let message = ""
+
 		const options = {
 			tooltips: {
 				callbacks: {
@@ -179,7 +181,7 @@ class IndexPage extends React.Component {
 							</label>
 							<label>
 								How old are you?
-								<input type="text" name="age" value={this.state.age} onChange={this.handleChange} />
+								<div><input type="text" name="age" value={this.state.age} onChange={this.handleChange} /></div>
 							</label>
 
 							<p className="smaller">Please note, we do not save any of your personal information.</p>
@@ -190,32 +192,33 @@ class IndexPage extends React.Component {
 					</form>
 				</div>
 
-				{show && <div className="results container">
-					<div className="chart">
-						<Bar
-							data={chartData}
-							// width={100}
-							// height={50}
-							// maintainAspectRatio: false
-							options={options}
-						/>
-					</div>
-					<div>
-						{message}
-						<div className="slidecontainer">
-							<h3>Change Your Investing</h3>
-							<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
-							<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-							<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
-							<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
-							{/* TODO: salary increase */}
+				<div className="results container" ref={this.scrollRef}>
+					{show && <div>
+						<div className="chart">
+							<Bar
+								data={chartData}
+								options={options}
+								// maintainAspectRatio: false
+							/>
+						</div>
+						<div>
+							{message}
+							<div className="slidecontainer">
+								<h3>Change Your Investing</h3>
+								<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
+								<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
+								<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
+								<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+								{/* TODO: salary increase */}
 
-							<div className="button-container">
-								<button onClick={this.handleSubmit}>Show me the money!</button>
+								<div className="button-container">
+									<button onClick={this.handleSubmit}>Show me the money!</button>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>}				
+					</div>}
+					
+				</div>				
 			</Layout>
 		);
 		}
