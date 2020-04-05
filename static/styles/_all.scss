@@ -102,6 +102,7 @@ body {
     }
 
     @media screen and (max-width: $break-mid) {
+      // color: red;
       display: block;
     }
   }
@@ -353,7 +354,7 @@ body {
   }
 }
 
-@media screen and (min-width: $break-mid) {
+@media screen and (min-width: $break-large) {
   body {
     .container {
       max-width: 70%;
@@ -364,6 +365,11 @@ body {
   body {
     .container {
       max-width: 82%;
+    }
+
+    .iframe-container {
+      max-width: 540px;
+      margin: 0 auto;
     }
   }
 }

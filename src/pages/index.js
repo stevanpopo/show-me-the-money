@@ -182,7 +182,9 @@ class IndexPage extends React.Component {
 						<p>Let's see how.</p>
 					</div>
 					<div>
-						<iframe title="show me the money scene in Jerry Maguire" height="315" src="https://www.youtube.com/embed/FCgy0dphOGc?modestbranding=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+						<div className="iframe-container">
+							<iframe title="show me the money scene in Jerry Maguire" height="315" src="https://www.youtube.com/embed/FCgy0dphOGc?modestbranding=1" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+						</div>
 					</div>
 				</div>
 
