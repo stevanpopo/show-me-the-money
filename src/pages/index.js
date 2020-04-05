@@ -103,16 +103,13 @@ class IndexPage extends React.Component {
 					label: (tooltipItem, data) => {
 						return formatter.format(tooltipItem.value)
 					}
-					// label: function(tooltipItem, data) {
-					// 	return tooltipItem.value.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
-					// }
 				}
 			},
 			scales: {
 				yAxes: [{
 					ticks: {
 						callback: function(value) {
-							return value.toLocaleString("en-GB",{style:"currency", currency:"GBP"});
+							return formatter.format(value)
 						}
 					}
 				}],
