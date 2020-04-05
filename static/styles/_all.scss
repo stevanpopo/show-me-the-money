@@ -209,12 +209,12 @@ body {
         margin-top: $spacing-unit;
       }
 
-      span {
+      span.smaller {
         margin-left: 5px;
       }
 
       .button-container {
-        margin-top: 2rem;
+        margin-top: $spacing-unit;
         display: flex;
 
         button {
@@ -278,20 +278,21 @@ body {
   }
 
   footer {
+    margin-top: 3 * $spacing-unit;
     padding: $spacing-unit 0;
     background-color: $white-color;
 
     @media screen and (max-width: $break-small) {
-      padding: 50px 0 45px;
+      margin-top: 2 * $spacing-unit;
+      // padding: 50px 0 45px;
     }
 
     .copyright {
       text-align: center;
-      // margin-top: 90px;
 
-      @media screen and (max-width: $break-small) {
-        margin-top: 31px;
-      }
+      // @media screen and (max-width: $break-small) {
+      //   margin-top: 31px;
+      // }
 
       p {
         font-size: 13px;

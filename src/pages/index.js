@@ -206,6 +206,7 @@ class IndexPage extends React.Component {
 							<h3>Change Your Investing</h3>
 							<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
 							<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
+							<p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
 							<input name="newInvestingRate" type="range" min="1" max="50" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 							{/* TODO: salary increase */}
 
