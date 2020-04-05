@@ -290,7 +290,6 @@ body {
       ul {
         display: grid;
         grid-template-columns: min-content 3fr;
-        // grid-template-columns: 170px 3fr;
         grid-gap: $spacing-unit;
       }
 
@@ -308,6 +307,10 @@ body {
       //   -webkit-font-smoothing: auto;
       //   -moz-osx-font-smoothing: auto;
       // }
+
+      a:hover {
+        text-decoration: underline;
+      }
 
       .nutmeg {
         color: $nutmeg;
