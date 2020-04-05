@@ -128,7 +128,9 @@ class IndexPage extends React.Component {
 			labels: labels,
 			datasets: [{
 				label: "Your Wealth",
-				data: dataset
+				data: dataset,
+				backgroundColor: "rgba(7,144,230,0.4)", 
+				// backgroundColor: "#e65d07", 
 			}]
 		}
 
