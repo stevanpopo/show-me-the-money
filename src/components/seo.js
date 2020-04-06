@@ -11,9 +11,6 @@ import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import logo from "../../static/images/showmethemoney.png"
 
-console.log(logo);
-
-
 
 function SEO({ description, lang, meta, title }) {
   const { site } = useStaticQuery(
