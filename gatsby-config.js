@@ -1,7 +1,7 @@
 module.exports = {
     siteMetadata: {
         title: `Show Me The Money`,
-        description: `Learn the power of investing`,
+        description: `Learn the power of investing with this visual tool`,
         author: `@stevanpopo`,
         siteUrl: `https://www.showmethemoney.club/`,
     },
