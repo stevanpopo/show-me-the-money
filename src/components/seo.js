@@ -9,8 +9,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import twitterCard from "../../static/images/twitter_card.png"
 import logo from "../../static/images/showmethemoney.png"
-console.log(logo);
+console.log(logo, twitterCard);
 
 
 function SEO({ description, lang, meta, title }) {
@@ -53,6 +54,10 @@ function SEO({ description, lang, meta, title }) {
         {
           property: `og:type`,
           content: `website`,
+        },
+        {
+          name: `google-site-verification`,
+          content: `IUnVXlpSqJFnBkBESQXU4mvnt2snviG-Y-cfO3SUOX8`
         },
         {
           name: `twitter:card`,
