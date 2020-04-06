@@ -9,7 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import logo from "../../public/images/showmethemoney.png"
+import logo from "../../static/images/showmethemoney.png"
 
 console.log(logo);
 
