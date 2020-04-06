@@ -349,12 +349,24 @@ body {
       margin-top: 2 * $spacing-unit;
     }
 
-    .copyright {
-      text-align: center;
+    .twitter, .github, .linkedin {
+      color: inherit;
+      margin-left: 5px;
+    }
 
-      // @media screen and (max-width: $break-small) {
-      //   margin-top: 31px;
-      // }
+    .twitter {
+      color: #00acee
+    }
+    .github {
+      color: #6a737d
+    }
+    .linkedin {
+      color: #0072b1
+    }
+
+    .copyright {
+      margin-top: $spacing-unit * 2;
+      text-align: center;
 
       p {
         font-size: 13px;
