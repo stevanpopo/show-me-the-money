@@ -10,6 +10,7 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import logo from "../../static/images/showmethemoney.png"
+console.log(logo);
 
 
 function SEO({ description, lang, meta, title }) {
@@ -59,7 +60,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:image`,
-          content: {logo},
+          content: logo,
         },
         {
           name: `twitter:creator`,
