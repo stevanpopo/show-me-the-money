@@ -10,8 +10,6 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import twitterCard from "../../static/images/twitter_card.png"
-import logo from "../../static/images/showmethemoney.png"
-console.log(logo, twitterCard);
 
 
 function SEO({ description, lang, meta, title }) {
@@ -23,6 +21,7 @@ function SEO({ description, lang, meta, title }) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -30,6 +29,8 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const rootUrl = site.siteMetadata.siteUrl
+  
 
   return (
     <Helmet
@@ -65,7 +66,11 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:image`,
-          content: logo,
+          content: `${rootUrl}${twitterCard}`,
+        },
+        {
+          name: `twitter:image:alt`,
+          content: `A twitter card for showmethemoney.club`,
         },
         {
           name: `twitter:creator`,

@@ -3,6 +3,7 @@ module.exports = {
         title: `Show Me The Money`,
         description: `Learn the power of investing`,
         author: `@stevanpopo`,
+        siteUrl: `https://www.showmethemoney.club/`,
     },
     plugins: [
         `gatsby-plugin-react-helmet`,
