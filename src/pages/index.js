@@ -190,7 +190,10 @@ class IndexPage extends React.Component {
 					<h3>How You Could Invest</h3>
 					<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
 					<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
+					{chartData.datasets.length > 1 && <h4>Scenario 1 - Investment Rate {investingRate}%</h4>}
 					<p>By investing <span className="highlight">{investingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to invest on a monthly basis. It may not seem like a lot to start, but bit by bit that <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> will grow, as shown in the graph above. And by the time you retire, that investment will be worth <span className="highlight">{formatter.format(dataset[dataset.length - 1])}</span>.</p>
+					{chartData.datasets.length > 1 && <h4>Scenario 2 - Investment Rate {compareInvestingRate}%</h4>}
+					{chartData.datasets.length > 1 && <p>By investing <span className="highlight">{compareInvestingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * compareInvestingRate)/100)}</span> to invest on a monthly basis. That <span className="highlight">{formatter.format(((earnings - spending) * compareInvestingRate)/100)}</span> will grow, as shown in the graph above. By the time you retire, that investment will be worth <span className="highlight">{formatter.format(compareDataset[compareDataset.length - 1])}</span>.</p>}
 					<p className="smaller">Investing comes with risk. 8% is the <em>average</em> return over long time periods. In the short term, your investment may decrease in value.</p>
 				</div>
 				<div className="slidecontainer">
