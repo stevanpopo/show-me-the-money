@@ -219,7 +219,10 @@ body {
       width: 100%;
 
       input {
-        margin-top: $spacing-unit;
+        display: block;
+        width: 90%;
+        margin: $spacing-unit auto;
+        border-radius: 5px;
       }
 
       span.smaller {
@@ -227,12 +230,14 @@ body {
       }
 
       // TODO: bolder?
-      // label {
-      //   font-weight: 600;
-      // }
+      label {
+        display: block;
+        font-weight: 600;
+        margin: 2*$spacing-unit 0 $spacing-unit;
+      }
 
       .button-container {
-        margin-top: $spacing-unit;
+        margin-top: 2 * $spacing-unit;
         display: flex;
 
         button {

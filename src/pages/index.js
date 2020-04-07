@@ -22,7 +22,7 @@ class IndexPage extends React.Component {
 			investingRate: 20,
 			newInvestingRate: 20,
 			compareInvestingRate: 20,
-			newCompareInvestingRate: 20,
+			newCompareInvestingRate: null,
 			// shouldScroll: true
 		};
 
@@ -117,6 +117,9 @@ class IndexPage extends React.Component {
 	render() {
 		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
+
+		console.log(compareInvestingRate, newCompareInvestingRate);
+		
 	
 		let result = "";
 
@@ -162,7 +165,7 @@ class IndexPage extends React.Component {
 			chartData.datasets.push({
 				label: `Investing Rate ${compareInvestingRate}%`,
 				data: compareDataset,
-				backgroundColor: "rgba(7,230,205,0.6)"
+				backgroundColor: "rgba(7,230,205,0.4)"
 			})
 		}
 
@@ -205,7 +208,8 @@ class IndexPage extends React.Component {
 					{
 						compare && <div>
 								<label htmlFor="newCompareInvestingRate">Investing Rate - {newCompareInvestingRate}% <span className="smaller">(previously: {compareInvestingRate}%)</span></label>
-								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+								<p>Your second chart will show a monthly contribution of <span className="highlight">{formatter.format(((earnings - spending) * compareInvestingRate)/100)}</span>.</p>
+								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate? newCompareInvestingRate: newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 						</div>
 					}
 					
