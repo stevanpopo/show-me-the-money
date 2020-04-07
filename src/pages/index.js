@@ -4,7 +4,7 @@ import SEO from "../components/seo"
 import { Bar, defaults } from 'react-chartjs-2';
 
 defaults.global.defaultFontFamily = "'Lato', sans-serif"
-// defaults.global.defaultFontColor = '#e65d07';
+// defaults.global.defaultFontColor = 'backgroundColor: "rgba(7,144,230,0.4)"';
 
 class IndexPage extends React.Component {
 	constructor(props) {
@@ -48,11 +48,16 @@ class IndexPage extends React.Component {
 		
 
 		// second chart
-		const compareInvestingRate = this.state.compareInvestingRate;
-		const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
-		// const yearsToInvest = 70 - this.state.age;
-		const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
-		console.log("COMPARE: ", compareChart);
+		if (this.state.compareInvestingRate !== investingRate) {
+			const compareInvestingRate = this.state.compareInvestingRate;
+			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
+			// const yearsToInvest = 70 - this.state.age;
+			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
+			console.log("COMPARE: ", compareChart);
+
+			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, show: true, scroll: true})
+			return
+		}
 
 		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
 	}
@@ -110,7 +115,7 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		const {labels, dataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate} = this.state;
+		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
 	
 		let result = "";
@@ -151,6 +156,18 @@ class IndexPage extends React.Component {
 				backgroundColor: "rgba(7,144,230,0.4)", 
 			}]
 		}
+
+		if(compare && compareDataset){
+			chartData.datasets[0].label = `Investing Rate ${newInvestingRate}%`
+			chartData.datasets.push({
+				label: `Investing Rate ${compareInvestingRate}%`,
+				data: compareDataset,
+				backgroundColor: "rgba(7,230,205,0.6)"
+			})
+		}
+
+		console.log("CHART: ", chartData);
+		
 
 		const formatter = new Intl.NumberFormat('en-GB', {
 			style: 'currency',
