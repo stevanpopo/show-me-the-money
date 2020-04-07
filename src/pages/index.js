@@ -13,6 +13,7 @@ class IndexPage extends React.Component {
 		this.state = {
 			show: false,
 			scroll: false,
+			compare: false,
 			earnings: 1000,
 			spending: 1000,
 			age: 21,
@@ -20,11 +21,13 @@ class IndexPage extends React.Component {
 			dataset: [2, 3, 4.5, 6, 10],
 			investingRate: 20,
 			newInvestingRate: 20,
-			shouldScroll: true
+			compareInvestingRate: 20,
+			// shouldScroll: true
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showCompare = this.showCompare.bind(this);
 		this.scrollRef = React.createRef()  
 	}
 
@@ -79,6 +82,10 @@ class IndexPage extends React.Component {
 		return dates;
 	}
 
+	showCompare(){
+		this.setState({compare: true})
+	}
+
 	componentDidUpdate() {
 		if(this.state.scroll){
 			window.scrollTo(0, this.scrollRef.current.offsetTop)
@@ -87,7 +94,7 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		const {labels, dataset, show, earnings, spending, investingRate, newInvestingRate} = this.state;
+		const {labels, dataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
 	
 		let result = "";
@@ -155,10 +162,17 @@ class IndexPage extends React.Component {
 				</div>
 				<div className="slidecontainer">
 					<h3>Change Your Investing</h3>
-					<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
+					<p>Edit your investing style below and press the button to recalculate your outcomes.  Or, <a onClick={this.showCompare}>compare two investments rates</a> on the same chart.</p>
 					<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-					<p>{change}</p>
+					{change}
 					<input name="newInvestingRate" type="range" min="1" max="80" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+					{
+						compare && <div>
+								<label htmlFor="compareInvestingRate">Investing Rate - {compareInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
+								<input name="compareInvestingRate" type="range" min="1" max="80" value={compareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+						</div>
+					}
+					
 					{/* TODO: salary increase */}
 
 					<div className="button-container">
