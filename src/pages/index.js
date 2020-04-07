@@ -22,6 +22,7 @@ class IndexPage extends React.Component {
 			investingRate: 20,
 			newInvestingRate: 20,
 			compareInvestingRate: 20,
+			newCompareInvestingRate: 20,
 			// shouldScroll: true
 		};
 
@@ -41,6 +42,7 @@ class IndexPage extends React.Component {
 
 		// first chart
 		const investingRate = this.state.newInvestingRate;
+		const compareInvestingRate = this.state.newCompareInvestingRate;
 		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
 		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
@@ -49,17 +51,15 @@ class IndexPage extends React.Component {
 
 		// second chart
 		if (this.state.compareInvestingRate !== investingRate) {
-			const compareInvestingRate = this.state.compareInvestingRate;
 			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
-			// const yearsToInvest = 70 - this.state.age;
 			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
 			console.log("COMPARE: ", compareChart);
 
-			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, show: true, scroll: true})
+			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, compareInvestingRate, show: true, scroll: true})
 			return
 		}
 
-		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
+		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, compareInvestingRate, show: true, scroll: true})
 	}
 
 	// produceChart(investingRate){
@@ -115,7 +115,7 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate} = this.state;
+		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
 	
 		let result = "";
@@ -201,8 +201,8 @@ class IndexPage extends React.Component {
 					<input name="newInvestingRate" type="range" min="1" max="80" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 					{
 						compare && <div>
-								<label htmlFor="compareInvestingRate">Investing Rate - {compareInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-								<input name="compareInvestingRate" type="range" min="1" max="80" value={compareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+								<label htmlFor="newCompareInvestingRate">Investing Rate - {newCompareInvestingRate}% <span className="smaller">(previously: {compareInvestingRate}%)</span></label>
+								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 						</div>
 					}
 					
