@@ -39,13 +39,29 @@ class IndexPage extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 
+		// first chart
 		const investingRate = this.state.newInvestingRate;
 		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
-		const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
+		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
+		console.log("OG: ", originalChart);
+		
 
-		this.setState({ labels: years, dataset: data, investingRate, show: true, scroll: true})
+		// second chart
+		const compareInvestingRate = this.state.compareInvestingRate;
+		const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
+		// const yearsToInvest = 70 - this.state.age;
+		const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
+		console.log("COMPARE: ", compareChart);
+
+		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
 	}
+
+	// produceChart(investingRate){
+	// 	const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
+	// 	const yearsToInvest = 70 - this.state.age;
+	// 	const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
+	// }
 
 	produceData(monthlyContribution, numberOfYears){
 		const years = this.getDates(numberOfYears)
