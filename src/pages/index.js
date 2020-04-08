@@ -37,7 +37,7 @@ class IndexPage extends React.Component {
 
 	handleChange(e) {
 		const field = e.target.name;
-		this.setState({ [field]: e.target.value})
+		this.setState({[field]: e.target.value})
 	}
 
 	handleSubmit(e) {
@@ -128,7 +128,7 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		console.log("STATE: ", this.state);
+		// console.log("STATE: ", this.state);
 		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
 		const canInvest = parseInt(earnings) > parseInt(spending);
 		const showChart = show && canInvest;
@@ -218,7 +218,7 @@ class IndexPage extends React.Component {
 						compare && <div>
 								<label htmlFor="newCompareInvestingRate">Investing Rate - {newCompareInvestingRate}% <span className="smaller">(previously: {compareInvestingRate}%)</span></label>
 								<p>Your second chart will show a monthly contribution of <span className="highlight">{formatter.format(((earnings - spending) * newCompareInvestingRate)/100)}</span>.</p>
-								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider slider-two" id="myRange" />
 						</div>
 					}
 
