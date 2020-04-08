@@ -14,7 +14,6 @@ class IndexPage extends React.Component {
 			show: false,
 			scroll: false,
 			compare: false,
-			canInvest: false, 
 			earnings: 1000,
 			spending: 1000,
 			age: 21,
@@ -24,7 +23,6 @@ class IndexPage extends React.Component {
 			newInvestingRate: 20,
 			compareInvestingRate: 0,
 			newCompareInvestingRate: 0
-			// shouldScroll: true
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -39,27 +37,7 @@ class IndexPage extends React.Component {
 
 	handleChange(e) {
 		const field = e.target.name;
-		const value = e.target.value;
-
-		const canInvestResult = this.checkInvestorStatus(field, value);
-
-		this.setState({ [field]: value , canInvest: canInvestResult})
-	}
-
-	checkInvestorStatus(field, value) {
-		let result = null;
-
-		if (field === 'earnings'){
-			console.log("EARNING");
-			result = value > this.state.spending;
-		} else if (field === 'spending'){
-			console.log("SPENDING", value, this.state.earnings, value < this.state.earnings);
-			result = value < this.state.earnings;
-		}
-
-		console.log("RESULT: ", result);
-		
-		return result;
+		this.setState({ [field]: e.target.value})
 	}
 
 	handleSubmit(e) {
@@ -143,24 +121,20 @@ class IndexPage extends React.Component {
 			window.scrollTo(0, this.scrollRef.current.offsetTop)
 			this.setState({scroll: false})
 		}
-
-		console.log("DIFF: ", prevState.canInvest, this.state.canInvest);
 		
-		if (prevState.canInvest !== this.state.canInvest){
-			console.log("UPDATE CHART");
-			
+		if (prevState.earnings !== this.state.earnings || prevState.spending !== this.state.spending || prevState.age !== this.state.age){
 			this.updateChart();
 		}
   }
 
 	render() {
 		console.log("STATE: ", this.state);
-		
-		const {labels, dataset, compareDataset, show, compare, canInvest, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
+		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
+		const canInvest = parseInt(earnings) > parseInt(spending);
 		const showChart = show && canInvest;
 		let result = "";
 
-		const options = {
+		const chartOptions = {
 			tooltips: {
 				callbacks: {
 					title: function(tooltipItem, data) {
@@ -213,7 +187,7 @@ class IndexPage extends React.Component {
 			minimumFractionDigits: 2
 		})
 
-		if (earnings > spending) {
+		if (showChart) {
 			let change = ""
 			if (newInvestingRate > investingRate){
 				change = <p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
@@ -308,7 +282,7 @@ class IndexPage extends React.Component {
 							<div className="chart">
 								<Bar
 									data={chartData}
-									options={options}
+									options={chartOptions}
 									// maintainAspectRatio: false
 								/>
 								<p className="smaller chart-annotation">We calculate returns using monthly compounding and 8% average growth.</p>
