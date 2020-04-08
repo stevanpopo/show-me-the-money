@@ -51,12 +51,10 @@ class IndexPage extends React.Component {
 
 		if (field === 'earnings'){
 			console.log("EARNING");
-			
-			result = value > this.state.spending? true: false;
+			result = value > this.state.spending;
 		} else if (field === 'spending'){
-			console.log("SPENDING");
-
-			result = value < this.state.earning? true: false;
+			console.log("SPENDING", value, this.state.earnings, value < this.state.earnings);
+			result = value < this.state.earnings;
 		}
 
 		console.log("RESULT: ", result);
@@ -84,6 +82,25 @@ class IndexPage extends React.Component {
 		}
 
 		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
+	}
+
+	updateChart(){
+		const investingRate = this.state.newInvestingRate;
+		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
+		const yearsToInvest = 70 - this.state.age;
+		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
+
+		// second chart
+		if (this.state.compareInvestingRate !== investingRate) {
+			const compareInvestingRate = this.state.newCompareInvestingRate;
+			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
+			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
+
+			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, compareInvestingRate})
+			return
+		}
+
+		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate})
 	}
 
 	produceData(monthlyContribution, numberOfYears){
@@ -121,10 +138,18 @@ class IndexPage extends React.Component {
 		return dates;
 	}
 
-	componentDidUpdate() {
-		if(this.state.scroll){
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.scroll) {
 			window.scrollTo(0, this.scrollRef.current.offsetTop)
 			this.setState({scroll: false})
+		}
+
+		console.log("DIFF: ", prevState.canInvest, this.state.canInvest);
+		
+		if (prevState.canInvest !== this.state.canInvest){
+			console.log("UPDATE CHART");
+			
+			this.updateChart();
 		}
   }
 

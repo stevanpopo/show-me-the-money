@@ -147,11 +147,13 @@ body {
       input {
         display: inline-block;
         background-color: inherit;
+        // background-color: $white-color;
         border: none;
         color: $brand-color;
         font-family: $sans-serif-font;
         font-size: $base-size;
-        width: 50px;
+        width: 60px;
+        // min-width: min-content;
 
         // &::-webkit-input-placeholder {
         //   text-decoration: underline dotted black;
