@@ -137,7 +137,7 @@ class IndexPage extends React.Component {
 		const chartOptions = {
 			tooltips: {
 				callbacks: {
-					title: function(tooltipItem, data) {
+					title: (tooltipItem, data) => {
 						return `Age: ${tooltipItem[0].label}`
 					},
 					label: (tooltipItem, data) => {
@@ -148,7 +148,7 @@ class IndexPage extends React.Component {
 			scales: {
 				yAxes: [{
 					ticks: {
-						callback: function(value) {
+						callback: (value) => {
 							return formatter.format(value)
 						}
 					}
