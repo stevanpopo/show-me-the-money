@@ -147,11 +147,13 @@ body {
       input {
         display: inline-block;
         background-color: inherit;
+        // background-color: $white-color;
         border: none;
         color: $brand-color;
         font-family: $sans-serif-font;
         font-size: $base-size;
-        width: 50px;
+        width: 60px;
+        // min-width: min-content;
 
         // &::-webkit-input-placeholder {
         //   text-decoration: underline dotted black;
@@ -219,20 +221,28 @@ body {
       width: 100%;
 
       input {
-        margin-top: $spacing-unit;
+        display: block;
+        width: 90%;
+        margin: $spacing-unit auto;
+        border-radius: 5px;
       }
 
       span.smaller {
         margin-left: 5px;
       }
 
-      // TODO: bolder?
-      // label {
-      //   font-weight: 600;
-      // }
+      span.compare:hover {
+        color: $highlight-color;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin: 2*$spacing-unit 0 $spacing-unit;
+      }
 
       .button-container {
-        margin-top: $spacing-unit;
+        margin-top: 2 * $spacing-unit;
         display: flex;
 
         button {
@@ -284,6 +294,13 @@ body {
       background: $highlight-color;
       cursor: pointer;
       border-radius: 4px;
+    }
+
+    .slider-two::-webkit-slider-thumb {
+      background: $highlight-color-two;
+    }
+    .slider-two::-moz-range-thumb {
+      background: $highlight-color-two;
     }
 
     .tools {

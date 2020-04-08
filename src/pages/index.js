@@ -4,7 +4,7 @@ import SEO from "../components/seo"
 import { Bar, defaults } from 'react-chartjs-2';
 
 defaults.global.defaultFontFamily = "'Lato', sans-serif"
-// defaults.global.defaultFontColor = '#e65d07';
+// defaults.global.defaultFontColor = 'backgroundColor: "rgba(7,144,230,0.4)"';
 
 class IndexPage extends React.Component {
 	constructor(props) {
@@ -13,6 +13,7 @@ class IndexPage extends React.Component {
 		this.state = {
 			show: false,
 			scroll: false,
+			compare: false,
 			earnings: 1000,
 			spending: 1000,
 			age: 21,
@@ -20,28 +21,64 @@ class IndexPage extends React.Component {
 			dataset: [2, 3, 4.5, 6, 10],
 			investingRate: 20,
 			newInvestingRate: 20,
-			shouldScroll: true
+			compareInvestingRate: 0,
+			newCompareInvestingRate: 0
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showCompare = this.showCompare.bind(this);
 		this.scrollRef = React.createRef()  
+	}
+
+	showCompare(){
+		this.setState({compare: true})
 	}
 
 	handleChange(e) {
 		const field = e.target.name;
-		this.setState({ [field]: e.target.value })
+		this.setState({[field]: e.target.value})
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
 
+		// first chart
 		const investingRate = this.state.newInvestingRate;
 		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
-		const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
+		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
 
-		this.setState({ labels: years, dataset: data, investingRate, show: true, scroll: true})
+		// second chart
+		if (this.state.compareInvestingRate !== investingRate) {
+			const compareInvestingRate = this.state.newCompareInvestingRate;
+			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
+			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
+
+			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, compareInvestingRate, show: true, scroll: true})
+			return
+		}
+
+		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
+	}
+
+	updateChart(){
+		const investingRate = this.state.newInvestingRate;
+		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
+		const yearsToInvest = 70 - this.state.age;
+		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
+
+		// second chart
+		if (this.state.compareInvestingRate !== investingRate) {
+			const compareInvestingRate = this.state.newCompareInvestingRate;
+			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
+			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
+
+			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, compareInvestingRate})
+			return
+		}
+
+		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate})
 	}
 
 	produceData(monthlyContribution, numberOfYears){
@@ -79,23 +116,28 @@ class IndexPage extends React.Component {
 		return dates;
 	}
 
-	componentDidUpdate() {
-		if(this.state.scroll){
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.scroll) {
 			window.scrollTo(0, this.scrollRef.current.offsetTop)
 			this.setState({scroll: false})
+		}
+		
+		if (prevState.earnings !== this.state.earnings || prevState.spending !== this.state.spending || prevState.age !== this.state.age){
+			this.updateChart();
 		}
   }
 
 	render() {
-		const {labels, dataset, show, earnings, spending, investingRate, newInvestingRate} = this.state;
-		const showChart = show && earnings > spending;
-	
+		// console.log("STATE: ", this.state);
+		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
+		const canInvest = parseInt(earnings) > parseInt(spending);
+		const showChart = show && canInvest;
 		let result = "";
 
-		const options = {
+		const chartOptions = {
 			tooltips: {
 				callbacks: {
-					title: function(tooltipItem, data) {
+					title: (tooltipItem, data) => {
 						return `Age: ${tooltipItem[0].label}`
 					},
 					label: (tooltipItem, data) => {
@@ -106,7 +148,7 @@ class IndexPage extends React.Component {
 			scales: {
 				yAxes: [{
 					ticks: {
-						callback: function(value) {
+						callback: (value) => {
 							return formatter.format(value)
 						}
 					}
@@ -128,6 +170,16 @@ class IndexPage extends React.Component {
 				backgroundColor: "rgba(7,144,230,0.4)", 
 			}]
 		}
+		
+		// add second dataset to chart
+		if(compare && compareDataset){
+			chartData.datasets[0].label = `Investing Rate ${newInvestingRate}%`
+			chartData.datasets.push({
+				label: `Investing Rate ${compareInvestingRate}%`,
+				data: compareDataset,
+				backgroundColor: "rgba(7,230,205,0.4)"
+			})
+		}
 
 		const formatter = new Intl.NumberFormat('en-GB', {
 			style: 'currency',
@@ -135,7 +187,7 @@ class IndexPage extends React.Component {
 			minimumFractionDigits: 2
 		})
 
-		if (earnings > spending) {
+		if (showChart) {
 			let change = ""
 			if (newInvestingRate > investingRate){
 				change = <p>This would increase your monthly contribution from <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to <span className="highlight">{formatter.format(((earnings - spending) * newInvestingRate)/100)}</span>.</p>
@@ -150,16 +202,25 @@ class IndexPage extends React.Component {
 					<h3>How You Could Invest</h3>
 					<p>You earn {formatter.format(earnings)} a month and spend {formatter.format(spending)} a month. Great, you're living within your means. This is an important part of growing your wealth.</p>
 					<p>That gives you {formatter.format(earnings - spending)} to save and invest on a monthly basis. We'll call this your surplus income.</p>
+					{chartData.datasets.length > 1 && <h4>Scenario 1 - Investment Rate {investingRate}%</h4>}
 					<p>By investing <span className="highlight">{investingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> to invest on a monthly basis. It may not seem like a lot to start, but bit by bit that <span className="highlight">{formatter.format(((earnings - spending) * investingRate)/100)}</span> will grow, as shown in the graph above. And by the time you retire, that investment will be worth <span className="highlight">{formatter.format(dataset[dataset.length - 1])}</span>.</p>
+					{chartData.datasets.length > 1 && <h4>Scenario 2 - Investment Rate {compareInvestingRate}%</h4>}
+					{chartData.datasets.length > 1 && <p>By investing <span className="highlight">{compareInvestingRate}%</span> of your surplus income, you'll have <span className="highlight">{formatter.format(((earnings - spending) * compareInvestingRate)/100)}</span> to invest on a monthly basis. That <span className="highlight">{formatter.format(((earnings - spending) * compareInvestingRate)/100)}</span> will grow, as shown in the graph above. By the time you retire, that investment will be worth <span className="highlight">{formatter.format(compareDataset[compareDataset.length - 1])}</span>.</p>}
 					<p className="smaller">Investing comes with risk. 8% is the <em>average</em> return over long time periods. In the short term, your investment may decrease in value.</p>
 				</div>
 				<div className="slidecontainer">
 					<h3>Change Your Investing</h3>
-					<p>Edit your investing style below and press the button to recalculate your outcomes.</p>
+					<p>Edit your investing style below and press the button to recalculate your outcomes.  Or, <span role="button" className="highlight compare" onClick={this.showCompare} onKeyDown={this.showCompare} tabIndex={0}>compare two investments rates</span> on the same chart.</p>
 					<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
-					<p>{change}</p>
+					{change}
 					<input name="newInvestingRate" type="range" min="1" max="80" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
-					{/* TODO: salary increase */}
+					{
+						compare && <div>
+								<label htmlFor="newCompareInvestingRate">Investing Rate - {newCompareInvestingRate}% <span className="smaller">(previously: {compareInvestingRate}%)</span></label>
+								<p>Your second chart will show a monthly contribution of <span className="highlight">{formatter.format(((earnings - spending) * newCompareInvestingRate)/100)}</span>.</p>
+								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider slider-two" id="myRange" />
+						</div>
+					}
 
 					<div className="button-container">
 						<button onClick={this.handleSubmit}>Show me the money!</button>
@@ -196,15 +257,15 @@ class IndexPage extends React.Component {
 						<div>
 							<label>
 								How much do you earn per month?
-								<div><span className="currency">£</span><input type="text" name="earnings" value={this.state.earnings} onChange={this.handleChange} /></div>
+								<div><span className="currency">£</span><input type="number" name="earnings" value={this.state.earnings} onChange={this.handleChange} /></div>
 							</label>
 							<label>
 								How much do you spend per month?
-								<div><span className="currency">£</span><input type="text" name="spending" value={this.state.spending} onChange={this.handleChange} /></div>
+								<div><span className="currency">£</span><input type="number" name="spending" value={this.state.spending} onChange={this.handleChange} /></div>
 							</label>
 							<label>
 								How old are you?
-								<div><input type="text" name="age" value={this.state.age} onChange={this.handleChange} /></div>
+								<div><input type="number" name="age" value={this.state.age} onChange={this.handleChange} /></div>
 							</label>
 
 							<p className="smaller">Please note, we do not save any of your personal information.</p>
@@ -221,7 +282,7 @@ class IndexPage extends React.Component {
 							<div className="chart">
 								<Bar
 									data={chartData}
-									options={options}
+									options={chartOptions}
 									// maintainAspectRatio: false
 								/>
 								<p className="smaller chart-annotation">We calculate returns using monthly compounding and 8% average growth.</p>
