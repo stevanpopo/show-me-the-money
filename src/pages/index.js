@@ -45,15 +45,12 @@ class IndexPage extends React.Component {
 		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
 		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
-		console.log("OG: ", originalChart);
-		
 
 		// second chart
 		if (this.state.compareInvestingRate !== investingRate) {
 			const compareInvestingRate = this.state.newCompareInvestingRate;
 			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
 			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
-			console.log("COMPARE: ", compareChart);
 
 			this.setState({ labels: originalChart.years, dataset: originalChart.data, compareDataset: compareChart.data, investingRate, compareInvestingRate, show: true, scroll: true})
 			return
@@ -61,12 +58,6 @@ class IndexPage extends React.Component {
 
 		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
 	}
-
-	// produceChart(investingRate){
-	// 	const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
-	// 	const yearsToInvest = 70 - this.state.age;
-	// 	const {years, data} = this.produceData(monthlyContribution, yearsToInvest)
-	// }
 
 	produceData(monthlyContribution, numberOfYears){
 		const years = this.getDates(numberOfYears)
@@ -117,10 +108,6 @@ class IndexPage extends React.Component {
 	render() {
 		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
-
-		console.log(compareInvestingRate, newCompareInvestingRate, newInvestingRate);
-		
-	
 		let result = "";
 
 		const options = {
@@ -168,9 +155,6 @@ class IndexPage extends React.Component {
 				backgroundColor: "rgba(7,230,205,0.4)"
 			})
 		}
-
-		console.log("CHART: ", chartData);
-		
 
 		const formatter = new Intl.NumberFormat('en-GB', {
 			style: 'currency',
