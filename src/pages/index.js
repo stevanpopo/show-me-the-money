@@ -21,8 +21,8 @@ class IndexPage extends React.Component {
 			dataset: [2, 3, 4.5, 6, 10],
 			investingRate: 20,
 			newInvestingRate: 20,
-			compareInvestingRate: 20,
-			newCompareInvestingRate: null,
+			compareInvestingRate: 0,
+			newCompareInvestingRate: 0
 			// shouldScroll: true
 		};
 
@@ -42,7 +42,6 @@ class IndexPage extends React.Component {
 
 		// first chart
 		const investingRate = this.state.newInvestingRate;
-		const compareInvestingRate = this.state.newCompareInvestingRate;
 		const monthlyContribution = (this.state.earnings - this.state.spending) * (investingRate/100);
 		const yearsToInvest = 70 - this.state.age;
 		const originalChart = this.produceData(monthlyContribution, yearsToInvest)
@@ -51,6 +50,7 @@ class IndexPage extends React.Component {
 
 		// second chart
 		if (this.state.compareInvestingRate !== investingRate) {
+			const compareInvestingRate = this.state.newCompareInvestingRate;
 			const compareMonthlyContribution = (this.state.earnings - this.state.spending) * (compareInvestingRate/100);
 			const compareChart = this.produceData(compareMonthlyContribution, yearsToInvest)
 			console.log("COMPARE: ", compareChart);
@@ -59,7 +59,7 @@ class IndexPage extends React.Component {
 			return
 		}
 
-		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, compareInvestingRate, show: true, scroll: true})
+		this.setState({ labels: originalChart.years, dataset: originalChart.data, investingRate, show: true, scroll: true})
 	}
 
 	// produceChart(investingRate){
@@ -118,7 +118,7 @@ class IndexPage extends React.Component {
 		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
 		const showChart = show && earnings > spending;
 
-		console.log(compareInvestingRate, newCompareInvestingRate);
+		console.log(compareInvestingRate, newCompareInvestingRate, newInvestingRate);
 		
 	
 		let result = "";
@@ -208,8 +208,8 @@ class IndexPage extends React.Component {
 					{
 						compare && <div>
 								<label htmlFor="newCompareInvestingRate">Investing Rate - {newCompareInvestingRate}% <span className="smaller">(previously: {compareInvestingRate}%)</span></label>
-								<p>Your second chart will show a monthly contribution of <span className="highlight">{formatter.format(((earnings - spending) * compareInvestingRate)/100)}</span>.</p>
-								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate? newCompareInvestingRate: newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
+								<p>Your second chart will show a monthly contribution of <span className="highlight">{formatter.format(((earnings - spending) * newCompareInvestingRate)/100)}</span>.</p>
+								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 						</div>
 					}
 					
