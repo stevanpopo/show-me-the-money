@@ -229,7 +229,10 @@ body {
         margin-left: 5px;
       }
 
-      // TODO: bolder?
+      span.compare:hover {
+        color: $highlight-color;
+      }
+
       label {
         display: block;
         font-weight: 600;

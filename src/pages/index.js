@@ -185,7 +185,7 @@ class IndexPage extends React.Component {
 				</div>
 				<div className="slidecontainer">
 					<h3>Change Your Investing</h3>
-					<p>Edit your investing style below and press the button to recalculate your outcomes.  Or, <a onClick={this.showCompare}>compare two investments rates</a> on the same chart.</p>
+					<p>Edit your investing style below and press the button to recalculate your outcomes.  Or, <span role="button" className="highlight compare" onClick={this.showCompare} onKeyDown={this.showCompare} tabIndex={0}>compare two investments rates</span> on the same chart.</p>
 					<label htmlFor="newInvestingRate">Investing Rate - {newInvestingRate}% <span className="smaller">(previously: {investingRate}%)</span></label>
 					{change}
 					<input name="newInvestingRate" type="range" min="1" max="80" value={newInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
@@ -196,8 +196,6 @@ class IndexPage extends React.Component {
 								<input name="newCompareInvestingRate" type="range" min="1" max="80" value={newCompareInvestingRate} onChange={this.handleChange} className="slider" id="myRange" />
 						</div>
 					}
-					
-					{/* TODO: salary increase */}
 
 					<div className="button-container">
 						<button onClick={this.handleSubmit}>Show me the money!</button>
