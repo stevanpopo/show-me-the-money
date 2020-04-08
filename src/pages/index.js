@@ -14,6 +14,7 @@ class IndexPage extends React.Component {
 			show: false,
 			scroll: false,
 			compare: false,
+			canInvest: false, 
 			earnings: 1000,
 			spending: 1000,
 			age: 21,
@@ -32,9 +33,35 @@ class IndexPage extends React.Component {
 		this.scrollRef = React.createRef()  
 	}
 
+	showCompare(){
+		this.setState({compare: true})
+	}
+
 	handleChange(e) {
 		const field = e.target.name;
-		this.setState({ [field]: e.target.value })
+		const value = e.target.value;
+
+		const canInvestResult = this.checkInvestorStatus(field, value);
+
+		this.setState({ [field]: value , canInvest: canInvestResult})
+	}
+
+	checkInvestorStatus(field, value) {
+		let result = null;
+
+		if (field === 'earnings'){
+			console.log("EARNING");
+			
+			result = value > this.state.spending? true: false;
+		} else if (field === 'spending'){
+			console.log("SPENDING");
+
+			result = value < this.state.earning? true: false;
+		}
+
+		console.log("RESULT: ", result);
+		
+		return result;
 	}
 
 	handleSubmit(e) {
@@ -94,10 +121,6 @@ class IndexPage extends React.Component {
 		return dates;
 	}
 
-	showCompare(){
-		this.setState({compare: true})
-	}
-
 	componentDidUpdate() {
 		if(this.state.scroll){
 			window.scrollTo(0, this.scrollRef.current.offsetTop)
@@ -106,8 +129,10 @@ class IndexPage extends React.Component {
   }
 
 	render() {
-		const {labels, dataset, compareDataset, show, compare, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
-		const showChart = show && earnings > spending;
+		console.log("STATE: ", this.state);
+		
+		const {labels, dataset, compareDataset, show, compare, canInvest, earnings, spending, investingRate, newInvestingRate, compareInvestingRate, newCompareInvestingRate} = this.state;
+		const showChart = show && canInvest;
 		let result = "";
 
 		const options = {
@@ -146,7 +171,8 @@ class IndexPage extends React.Component {
 				backgroundColor: "rgba(7,144,230,0.4)", 
 			}]
 		}
-
+		
+		// add second dataset to chart
 		if(compare && compareDataset){
 			chartData.datasets[0].label = `Investing Rate ${newInvestingRate}%`
 			chartData.datasets.push({
@@ -232,15 +258,15 @@ class IndexPage extends React.Component {
 						<div>
 							<label>
 								How much do you earn per month?
-								<div><span className="currency">£</span><input type="text" name="earnings" value={this.state.earnings} onChange={this.handleChange} /></div>
+								<div><span className="currency">£</span><input type="number" name="earnings" value={this.state.earnings} onChange={this.handleChange} /></div>
 							</label>
 							<label>
 								How much do you spend per month?
-								<div><span className="currency">£</span><input type="text" name="spending" value={this.state.spending} onChange={this.handleChange} /></div>
+								<div><span className="currency">£</span><input type="number" name="spending" value={this.state.spending} onChange={this.handleChange} /></div>
 							</label>
 							<label>
 								How old are you?
-								<div><input type="text" name="age" value={this.state.age} onChange={this.handleChange} /></div>
+								<div><input type="number" name="age" value={this.state.age} onChange={this.handleChange} /></div>
 							</label>
 
 							<p className="smaller">Please note, we do not save any of your personal information.</p>
