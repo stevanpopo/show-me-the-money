@@ -302,7 +302,7 @@ class IndexPage extends React.Component {
 							<a href="https://www.vanguardinvestor.co.uk/" className="vanguard">Vanguard</a>
 							<li>Invest in a range of low-cost index funds and ETFs.</li>
 							<a href="https://freetrade.io/" className="freetrade">Freetrade</a>
-							<li>Pick and choose ETFs or individual stocks with no-fees.</li>
+							<li>Pick and choose ETFs or individual stocks with no-fees. Click <a href="https://magic.freetrade.io/join/stevan/28488e2e">here</a> to join via my invite and win free shares.</li>
 							<a href="https://www.hl.co.uk/" className="hl">Hargreaves Lansdown</a>
 							<li>Choose funds, ETFs or individual stocks.</li>
 							< a href="https://www.finimize.com/" className="finimize">Finimize</a>
